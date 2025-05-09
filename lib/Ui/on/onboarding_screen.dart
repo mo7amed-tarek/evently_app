@@ -1,9 +1,8 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
+import 'package:evently_app/model/onboarding_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'onboarding_data.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -23,7 +22,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void nextPage() {
-    if (currentIndex < contents.length - 1) {
+    if (currentIndex < OnboardingContent.contents.length - 1) {
       _controller.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -54,7 +53,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Expanded(
               child: PageView.builder(
                 controller: _controller,
-                itemCount: contents.length,
+                itemCount: OnboardingContent.contents.length,
                 onPageChanged: (index) {
                   setState(() {
                     currentIndex = index;
@@ -67,15 +66,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 28.h),
-                        Image.asset(contents[index].image2),
+                        Image.asset(OnboardingContent.contents[index].image2),
                         SizedBox(height: 28.h),
                         Text(
-                          contents[index].description,
+                          OnboardingContent.contents[index].description,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         SizedBox(height: 28.h),
                         Text(
-                          contents[index].additionalDescription,
+                          OnboardingContent
+                              .contents[index]
+                              .additionalDescription,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
@@ -114,7 +115,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   // Dots Indicator
                   Expanded(
                     child: DotsIndicator(
-                      dotsCount: contents.length,
+                      dotsCount: OnboardingContent.contents.length,
                       position: currentIndex.toDouble(),
                       decorator: DotsDecorator(
                         activeColor: Theme.of(context).colorScheme.primary,
