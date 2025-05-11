@@ -8,9 +8,17 @@ class AppStyle {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: ColorManager.lightbackground,
     appBarTheme: AppBarTheme(
+      scrolledUnderElevation: 0,
+      shadowColor: Colors.transparent,
       backgroundColor: Colors.transparent,
       centerTitle: true,
+      titleTextStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 22,
+        color: ColorManager.black,
+      ),
     ),
+
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.deepPurple,
       primary: ColorManager.blue,
@@ -18,7 +26,9 @@ class AppStyle {
       tertiary: ColorManager.red,
       brightness: Brightness.light,
       onPrimary: Colors.white,
+      onPrimaryContainer: ColorManager.grey,
     ),
+
     textTheme: TextTheme(
       labelMedium: TextStyle(
         fontSize: 20.h,
@@ -35,13 +45,25 @@ class AppStyle {
         fontWeight: FontWeight.w500,
         fontSize: 16.sp,
       ),
+      titleSmall: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: ColorManager.grey,
+      ),
     ),
   );
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: ColorManager.darkbackground,
     appBarTheme: AppBarTheme(
+      scrolledUnderElevation: 0,
+      shadowColor: Colors.transparent,
       backgroundColor: Colors.transparent,
       centerTitle: true,
+      titleTextStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 22,
+        color: ColorManager.blue,
+      ),
     ),
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.deepPurple,
@@ -50,6 +72,7 @@ class AppStyle {
       tertiary: ColorManager.red,
       brightness: Brightness.dark,
       onPrimary: Colors.black,
+      onPrimaryContainer: ColorManager.withe,
     ),
     textTheme: TextTheme(
       labelMedium: TextStyle(
@@ -66,6 +89,11 @@ class AppStyle {
         color: ColorManager.withe,
         fontWeight: FontWeight.w500,
         fontSize: 16.sp,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: ColorManager.withe,
       ),
     ),
   );

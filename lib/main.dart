@@ -1,3 +1,5 @@
+import 'package:evently_app/Ui/on/onboarding_screen.dart';
+import 'package:evently_app/Ui/register/screens/register_screen.dart';
 import 'package:evently_app/core/prefs_manager.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +53,8 @@ class MyApp extends StatelessWidget {
           routes: {
             SplashScreen.routeName: (_) => const SplashScreen(),
             StartScreen.routeName: (_) => const StartScreen(),
+            OnboardingScreen.routeName: (_) => const OnboardingScreen(),
+            RegisterScreen.routeName: (_) => const RegisterScreen(),
           },
           initialRoute: SplashScreen.routeName,
         );

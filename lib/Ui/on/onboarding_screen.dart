@@ -1,10 +1,13 @@
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:evently_app/Ui/register/screens/register_screen.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/model/onboarding_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  static const String routeName = "onbordingscreen";
+
   const OnboardingScreen({super.key});
 
   @override
@@ -27,6 +30,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
+    } else {
+      Navigator.pushReplacementNamed(context, RegisterScreen.routeName);
     }
   }
 
@@ -69,7 +74,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Image.asset(
                           OnboardingContent.contents[index].image2(context),
                         ),
-
                         SizedBox(height: 28.h),
                         Text(
                           OnboardingContent.contents[index].description,
@@ -88,7 +92,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 },
               ),
             ),
-
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.h),
               child: Row(
@@ -114,7 +117,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                     ),
-
                   // Dots Indicator
                   Expanded(
                     child: DotsIndicator(
@@ -131,7 +133,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                     ),
                   ),
-
                   GestureDetector(
                     onTap: nextPage,
                     child: Container(
