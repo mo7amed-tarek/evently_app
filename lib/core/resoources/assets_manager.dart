@@ -12,4 +12,6 @@ abstract final class AssetsManager {
   static const String on1 = ("assets/image/on_1.png");
   static const String on2 = ("assets/image/on_2.png");
   static const String on3 = ("assets/image/on_3.png");
+  static const String on2Dark = ("assets/image/on2_dark.png");
+  static const String on3Dark = ("assets/image/on3_dark.png");
 }

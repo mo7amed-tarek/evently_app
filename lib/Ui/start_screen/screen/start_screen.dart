@@ -1,11 +1,14 @@
 import 'package:evently_app/Ui/on/onboarding_screen.dart';
+import 'package:evently_app/core/prefs_manager.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/core/resoources/strings_manager.dart';
 import 'package:evently_app/core/reusable_components/custom_buttom.dart';
 import 'package:evently_app/core/reusable_components/custom_switch.dart';
+import 'package:evently_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:provider/provider.dart';
 
 class StartScreen extends StatefulWidget {
   static const String routeName = "start";
@@ -22,6 +25,11 @@ class _StartScreenState extends State<StartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    selectedLanguage = context.locale.languageCode == "ar" ? 1 : 0;
+
+    themeprovider provider = Provider.of<themeprovider>(context, listen: false);
+    selectedTheme = provider.themeMode == ThemeMode.dark ? 1 : 0;
+
     return Scaffold(
       appBar: AppBar(title: Image.asset(AssetsManager.titel)),
       body: SizedBox(
@@ -98,6 +106,13 @@ class _StartScreenState extends State<StartScreen> {
                     onChanged: (value) {
                       setState(() {
                         selectedTheme = value;
+                        if (selectedTheme == 1) {
+                          provider.changetheme(ThemeMode.dark);
+                          PrefsManager.savathemeMode(true);
+                        } else {
+                          provider.changetheme(ThemeMode.light);
+                          PrefsManager.savathemeMode(false);
+                        }
                       });
                     },
                   ),

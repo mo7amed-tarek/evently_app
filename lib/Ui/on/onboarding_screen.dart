@@ -66,7 +66,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 28.h),
-                        Image.asset(OnboardingContent.contents[index].image2),
+                        Image.asset(
+                          OnboardingContent.contents[index].image2(context),
+                        ),
+
                         SizedBox(height: 28.h),
                         Text(
                           OnboardingContent.contents[index].description,
