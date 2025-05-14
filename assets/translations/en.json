@@ -17,5 +17,9 @@
   "repassword": "Re-enter Password",
   "Create Account": "Create Account",
   "Already Have Account ?": "Already Have Account ?",
-"login": "Login"
+"login": "Login",
+"Don’t Have Account ?": "Don’t Have Account ?",
+"Forget Password?": "Forget Password?",
+
+"Reset Password": "Reset Password"
 }

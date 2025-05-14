@@ -17,5 +17,11 @@
   "repassword": "إعادة كلمة المرور",
    "Create Account": "انشاء حساب",
    "Already Have Account ?": "هل لديك حساب بالفعل؟",
-    "login": "تسجيل الدخول"
+    "login": "تسجيل الدخول",
+    "Don’t Have Account ?": "ليس لديك حساب؟",
+    "Forget Password?": "هل نسيت كلمة المرور؟",
+    "Reset Password": "إعادة تعيين كلمة المرور"
+
+
+
 }

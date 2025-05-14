@@ -1,3 +1,5 @@
+import 'package:evently_app/Ui/forgot%20_password/screen/forgot_password_screen.dart';
+import 'package:evently_app/Ui/login/screen/login_screen.dart';
 import 'package:evently_app/Ui/on/onboarding_screen.dart';
 import 'package:evently_app/Ui/register/screens/register_screen.dart';
 import 'package:evently_app/core/prefs_manager.dart';
@@ -55,6 +57,8 @@ class MyApp extends StatelessWidget {
             StartScreen.routeName: (_) => const StartScreen(),
             OnboardingScreen.routeName: (_) => const OnboardingScreen(),
             RegisterScreen.routeName: (_) => const RegisterScreen(),
+            LoginScreen.routeName: (_) => const LoginScreen(),
+            ForgotPasswordScreen.routeName: (_) => const ForgotPasswordScreen(),
           },
           initialRoute: SplashScreen.routeName,
         );

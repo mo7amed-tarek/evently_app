@@ -25,4 +25,7 @@ abstract final class StringsManager {
   static String get createAccount => 'Create Account'.tr();
   static String get alreadyHaveAccount => 'Already Have Account ?'.tr();
   static String get login => "login".tr();
+  static String get dontHaveAccount => 'Don’t Have Account ?'.tr();
+  static String get forgetPassword => 'Forget Password?'.tr();
+  static String get resetPassword => 'Reset Password'.tr();
 }

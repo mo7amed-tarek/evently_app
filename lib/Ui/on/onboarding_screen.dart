@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:evently_app/Ui/register/screens/register_screen.dart';
+import 'package:evently_app/Ui/login/screen/login_screen.dart';
+
 import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/model/onboarding_content.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      Navigator.pushReplacementNamed(context, RegisterScreen.routeName);
+      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
     }
   }
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomField extends StatelessWidget {
+class CustomField extends StatefulWidget {
   final String? Function(String?)? validation;
   final String hint;
   final String prefixpath;
@@ -22,17 +22,30 @@ class CustomField extends StatelessWidget {
   });
 
   @override
+  State<CustomField> createState() => _CustomFieldState();
+}
+
+class _CustomFieldState extends State<CustomField> {
+  late bool isHiden;
+
+  @override
+  void initState() {
+    super.initState();
+    isHiden = widget.obscure;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: validation,
-      controller: controller,
+      validator: widget.validation,
+      controller: widget.controller,
       style: Theme.of(context).textTheme.titleSmall,
-      keyboardType: kyboard,
-      obscureText: obscure,
+      keyboardType: widget.kyboard,
+      obscureText: isHiden,
       obscuringCharacter: "*",
       decoration: InputDecoration(
         hintStyle: Theme.of(context).textTheme.titleSmall,
-        hintText: hint,
+        hintText: widget.hint,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: ColorManager.grey),
@@ -53,7 +66,7 @@ class CustomField extends StatelessWidget {
         prefixIcon: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 19),
           child: SvgPicture.asset(
-            prefixpath,
+            widget.prefixpath,
             height: 32.h,
             width: 32.w,
             colorFilter: ColorFilter.mode(
@@ -62,6 +75,18 @@ class CustomField extends StatelessWidget {
             ),
           ),
         ),
+        suffixIcon:
+            widget.obscure
+                ? IconButton(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  onPressed: () {
+                    setState(() {
+                      isHiden = !isHiden;
+                    });
+                  },
+                  icon: Icon(isHiden ? Icons.visibility_off : Icons.visibility),
+                )
+                : null,
       ),
     );
   }
