@@ -1,8 +1,10 @@
+import 'package:evently_app/core/dialog_utils.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/core/resoources/constants.dart';
 import 'package:evently_app/core/resoources/strings_manager.dart';
 import 'package:evently_app/core/reusable_components/custom_buttom.dart';
 import 'package:evently_app/core/reusable_components/custom_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -47,10 +49,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 prefixpath: AssetsManager.email,
                 validation: (value) {
                   if (value == null || value.isEmpty) {
-                    return "should not be empty";
+                    return StringsManager.shouldnotempty;
                   }
                   if (!RegExp(emailRegex).hasMatch(value)) {
-                    return "Email not valiad";
+                    return StringsManager.Emailnotvaliad;
                   }
                   return null;
                 },
@@ -61,8 +63,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 width: double.infinity,
                 child: CustomButton(
                   title: StringsManager.resetPassword,
-                  onClick: () {
-                    if (formkey.currentState?.validate() ?? false) {}
+                  onClick: () async {
+                    if (formkey.currentState?.validate() ?? false) {
+                      DialogUtils.showLodingDialog(context);
+                      await FirebaseAuth.instance.sendPasswordResetEmail(
+                        email: emailConroller.text,
+                      );
+                      Navigator.pop(context);
+                      DialogUtils.showtoast(StringsManager.linksentsucessful);
+                    }
                   },
                 ),
               ),

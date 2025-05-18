@@ -20,8 +20,20 @@
     "login": "تسجيل الدخول",
     "Don’t Have Account ?": "ليس لديك حساب؟",
     "Forget Password?": "هل نسيت كلمة المرور؟",
-    "Reset Password": "إعادة تعيين كلمة المرور"
-
-
-
+    "Reset Password": "إعادة تعيين كلمة المرور",
+  
+  "should not be empty": "هذا الحقل لا يجب أن يكون فارغًا.",
+  "Email not valiad": "البريد الإلكتروني غير صالح.",
+  "Password shoulnt be less than 8 char": "يجب ألا تقل كلمة المرور عن 8 أحرف.",
+  "No user found for that email": "لا يوجد مستخدم بهذا البريد الإلكتروني.",
+  "OK": "حسنًا",
+  "Wrong password provided for that user.": "كلمة المرور غير صحيحة لهذا المستخدم.",
+  "link sent sucessful": "تم إرسال رابط إعادة تعيين كلمة المرور بنجاح.",
+  "Passwords do not match.": "كلمتا المرور غير متطابقتين.",
+  "The password provided is too weak.": "كلمة المرور المُدخلة ضعيفة جدًا.",
+  "The account already exists for that email.": "يوجد حساب بالفعل مرتبط بهذا البريد الإلكتروني."
 }
+
+
+
+

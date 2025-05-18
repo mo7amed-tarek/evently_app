@@ -1,9 +1,13 @@
 import 'package:evently_app/Ui/forgot%20_password/screen/forgot_password_screen.dart';
+import 'package:evently_app/Ui/home/screens/home_screen.dart';
 import 'package:evently_app/Ui/login/screen/login_screen.dart';
 import 'package:evently_app/Ui/on/onboarding_screen.dart';
 import 'package:evently_app/Ui/register/screens/register_screen.dart';
 import 'package:evently_app/core/prefs_manager.dart';
+import 'package:evently_app/firebase_options.dart';
 import 'package:evently_app/providers/theme_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -18,6 +22,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await PrefsManager.init();
 
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
@@ -59,8 +64,12 @@ class MyApp extends StatelessWidget {
             RegisterScreen.routeName: (_) => const RegisterScreen(),
             LoginScreen.routeName: (_) => const LoginScreen(),
             ForgotPasswordScreen.routeName: (_) => const ForgotPasswordScreen(),
+            HomeScreen.routeNeme: (_) => const HomeScreen(),
           },
-          initialRoute: SplashScreen.routeName,
+          initialRoute:
+              FirebaseAuth.instance.currentUser != null
+                  ? HomeScreen.routeNeme
+                  : SplashScreen.routeName,
         );
       },
     );

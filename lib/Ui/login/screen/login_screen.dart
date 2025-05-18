@@ -1,10 +1,13 @@
 import 'package:evently_app/Ui/forgot%20_password/screen/forgot_password_screen.dart';
+import 'package:evently_app/Ui/home/screens/home_screen.dart';
 import 'package:evently_app/Ui/register/screens/register_screen.dart';
+import 'package:evently_app/core/dialog_utils.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/core/resoources/constants.dart';
 import 'package:evently_app/core/resoources/strings_manager.dart';
 import 'package:evently_app/core/reusable_components/custom_buttom.dart';
 import 'package:evently_app/core/reusable_components/custom_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -48,6 +51,7 @@ class _RegisterScreenState extends State<LoginScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(height: 35.h),
                 Image.asset(AssetsManager.logo),
                 SizedBox(height: 24.h),
 
@@ -57,10 +61,10 @@ class _RegisterScreenState extends State<LoginScreen> {
                   prefixpath: AssetsManager.email,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return "should not be empty";
+                      return StringsManager.shouldnotempty;
                     }
                     if (!RegExp(emailRegex).hasMatch(value)) {
-                      return "Email not valiad";
+                      return StringsManager.Emailnotvaliad;
                     }
                     return null;
                   },
@@ -74,10 +78,10 @@ class _RegisterScreenState extends State<LoginScreen> {
                   prefixpath: AssetsManager.pass,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return "should not be empty";
+                      return StringsManager.shouldnotempty;
                     }
                     if (value.length < 8) {
-                      return "Password shouln't be less than 8 char";
+                      return StringsManager.passvaladetion;
                     }
                     return null;
                   },
@@ -110,7 +114,9 @@ class _RegisterScreenState extends State<LoginScreen> {
                   child: CustomButton(
                     title: StringsManager.login,
                     onClick: () {
-                      formkay.currentState?.validate();
+                      if (formkay.currentState?.validate() ?? false) {
+                        login();
+                      }
                     },
                   ),
                 ),
@@ -144,5 +150,39 @@ class _RegisterScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  login() async {
+    try {
+      DialogUtils.showLodingDialog(context);
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailConroller.text,
+        password: passConroller.text,
+      );
+      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, HomeScreen.routeNeme);
+      print(credential.user?.uid);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == 'user-not-found') {
+        DialogUtils.showMassegeDialog(
+          context: context,
+          message: StringsManager.userNotFoundForEmail,
+          postitle: StringsManager.ok,
+          posclick: () {
+            Navigator.pop(context);
+          },
+        );
+      } else if (e.code == 'wrong-password') {
+        DialogUtils.showMassegeDialog(
+          context: context,
+          message: StringsManager.wrongPassword,
+          postitle: StringsManager.ok,
+          posclick: () {
+            Navigator.pop(context);
+          },
+        );
+      }
+    }
   }
 }

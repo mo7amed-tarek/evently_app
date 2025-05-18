@@ -1,9 +1,12 @@
+import 'package:evently_app/Ui/home/screens/home_screen.dart';
 import 'package:evently_app/Ui/login/screen/login_screen.dart';
+import 'package:evently_app/core/dialog_utils.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/core/resoources/constants.dart';
 import 'package:evently_app/core/resoources/strings_manager.dart';
 import 'package:evently_app/core/reusable_components/custom_buttom.dart';
 import 'package:evently_app/core/reusable_components/custom_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -59,7 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixpath: AssetsManager.name,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return "should not be empty";
+                      return StringsManager.shouldnotempty;
                     }
                     return null;
                   },
@@ -72,10 +75,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixpath: AssetsManager.email,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return "should not be empty";
+                      return StringsManager.shouldnotempty;
                     }
                     if (!RegExp(emailRegex).hasMatch(value)) {
-                      return "Email not valiad";
+                      return StringsManager.Emailnotvaliad;
                     }
                     return null;
                   },
@@ -89,10 +92,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixpath: AssetsManager.pass,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return "should not be empty";
+                      return StringsManager.shouldnotempty;
                     }
                     if (value.length < 8) {
-                      return "Password shouln't be less than 8 char";
+                      return StringsManager.passvaladetion;
                     }
                     return null;
                   },
@@ -106,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixpath: AssetsManager.repass,
                   validation: (value) {
                     if (value != passConroller.text) {
-                      return " Not same as password";
+                      return StringsManager.passwordsDoNotMatch;
                     }
                     return null;
                   },
@@ -118,7 +121,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: CustomButton(
                     title: StringsManager.createAccount,
                     onClick: () {
-                      formkay.currentState?.validate();
+                      if (formkay.currentState?.validate() ?? false) {
+                        signup();
+                      }
                     },
                   ),
                 ),
@@ -155,5 +160,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  signup() async {
+    try {
+      DialogUtils.showLodingDialog(context);
+      UserCredential credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: emailConroller.text,
+            password: passConroller.text,
+          );
+      Navigator.pop(context);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        HomeScreen.routeNeme,
+        (Route) => false,
+      );
+      print(credential.user?.uid);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == 'weak-password') {
+        DialogUtils.showMassegeDialog(
+          context: context,
+          message: StringsManager.weakPassword,
+          postitle: StringsManager.ok,
+          posclick: () {
+            Navigator.pop(context);
+          },
+        );
+      } else if (e.code == 'email-already-in-use') {
+        DialogUtils.showMassegeDialog(
+          context: context,
+          message: StringsManager.emailAlreadyInUse,
+          postitle: StringsManager.ok,
+          posclick: () {
+            Navigator.pop(context);
+          },
+        );
+      }
+    } catch (error) {
+      print(error.toString());
+    }
   }
 }
