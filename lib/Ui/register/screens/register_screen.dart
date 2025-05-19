@@ -25,6 +25,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController passConroller;
   late TextEditingController repassConroller;
   GlobalKey<FormState> formkay = GlobalKey<FormState>();
+
+  String? _selectedGender;
+
   @override
   void initState() {
     super.initState();
@@ -116,6 +119,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   kyboard: TextInputType.visiblePassword,
                 ),
                 SizedBox(height: 16.h),
+
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    labelText: StringsManager.SelectGender,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 10,
+                    ),
+                  ),
+                  value: _selectedGender,
+                  items:
+                      [StringsManager.male, StringsManager.female].map((
+                        String value,
+                      ) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedGender = newValue;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return StringsManager.pleaseSelectGender;
+                    }
+                    return null;
+                  },
+                ),
+
+                SizedBox(height: 16.h),
+
                 SizedBox(
                   width: double.infinity,
                   child: CustomButton(

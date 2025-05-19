@@ -38,4 +38,8 @@ abstract final class StringsManager {
   static String get weakPassword => 'The password provided is too weak.'.tr();
   static String get emailAlreadyInUse =>
       'The account already exists for that email.'.tr();
+  static String get SelectGender => 'Select Gender'.tr();
+  static String get male => 'Male'.tr();
+  static String get female => 'female'.tr();
+  static String get pleaseSelectGender => "Please select a gender".tr();
 }

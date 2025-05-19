@@ -32,6 +32,11 @@
   "link sent sucessful": "Password reset link sent successfully.",
   "Passwords do not match.": "Passwords do not match.",
   "The password provided is too weak.": "The password provided is too weak.",
-  "The account already exists for that email.": "The account already exists for that email."
+  "The account already exists for that email.": "The account already exists for that email.",
+  "selectGender": "Select Gender",
+  "male": "Male",
+  "female": "Female",
+  "pleaseSelectGender": "Please select a gender"
+
 }
 

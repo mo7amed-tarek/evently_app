@@ -31,7 +31,12 @@
   "link sent sucessful": "تم إرسال رابط إعادة تعيين كلمة المرور بنجاح.",
   "Passwords do not match.": "كلمتا المرور غير متطابقتين.",
   "The password provided is too weak.": "كلمة المرور المُدخلة ضعيفة جدًا.",
-  "The account already exists for that email.": "يوجد حساب بالفعل مرتبط بهذا البريد الإلكتروني."
+  "The account already exists for that email.": "يوجد حساب بالفعل مرتبط بهذا البريد الإلكتروني.",
+  "selectGender": "اختار الجنس",
+  "male": "ذكر",
+  "female": "أنثى",
+  "pleaseSelectGender": "الرجاء اختيار الجنس"
+
 }
 
 
