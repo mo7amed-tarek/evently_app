@@ -2,14 +2,18 @@ import 'package:evently_app/Ui/forgot%20_password/screen/forgot_password_screen.
 import 'package:evently_app/Ui/home/screens/home_screen.dart';
 import 'package:evently_app/Ui/register/screens/register_screen.dart';
 import 'package:evently_app/core/dialog_utils.dart';
+import 'package:evently_app/core/firestor_handler.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/core/resoources/constants.dart';
 import 'package:evently_app/core/resoources/strings_manager.dart';
 import 'package:evently_app/core/reusable_components/custom_buttom.dart';
 import 'package:evently_app/core/reusable_components/custom_field.dart';
+import 'package:evently_app/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:evently_app/model/users.dart' as MyUser;
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = "login";
@@ -21,24 +25,24 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<LoginScreen> {
-  late TextEditingController emailConroller;
-  late TextEditingController passConroller;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
 
   GlobalKey<FormState> formkay = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
 
-    emailConroller = TextEditingController();
-    passConroller = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    emailConroller.dispose();
-    passConroller.dispose();
+    emailController.dispose();
+    passwordController.dispose();
   }
 
   @override
@@ -57,7 +61,7 @@ class _RegisterScreenState extends State<LoginScreen> {
 
                 CustomField(
                   hint: StringsManager.email,
-                  controller: emailConroller,
+                  controller: emailController,
                   prefixpath: AssetsManager.email,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
@@ -74,7 +78,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                 CustomField(
                   hint: StringsManager.password,
                   obscure: true,
-                  controller: passConroller,
+                  controller: passwordController,
                   prefixpath: AssetsManager.pass,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
@@ -153,12 +157,17 @@ class _RegisterScreenState extends State<LoginScreen> {
   }
 
   login() async {
+    UserProvider provider = Provider.of<UserProvider>(context, listen: false);
     try {
       DialogUtils.showLodingDialog(context);
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailConroller.text,
-        password: passConroller.text,
+        email: emailController.text,
+        password: passwordController.text,
       );
+      MyUser.User? myUser = await FirestorHandler.getUser(
+        credential.user?.uid ?? "",
+      );
+      provider.savaUser(myUser);
       Navigator.pop(context);
       Navigator.pushReplacementNamed(context, HomeScreen.routeNeme);
       print(credential.user?.uid);

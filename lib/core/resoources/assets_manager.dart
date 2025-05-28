@@ -19,4 +19,12 @@ abstract final class AssetsManager {
   static const String pass = ("assets/image/lock.svg");
   static const String repass = ("assets/image/repass.svg");
   static const String forgot = ("assets/image/forgot pass.png");
+  static const String home = ("assets/image/Home.svg");
+  static const String homeSelected = ("assets/image/Home_selected.svg");
+  static const String heart = ("assets/image/Heart.svg");
+  static const String heartSelected = ("assets/image/Heart_selected.svg");
+  static const String map = ("assets/image/Map.svg");
+  static const String mapSelected = ("assets/image/Map_selected.svg");
+  static const String user = ("assets/image/User.svg");
+  static const String userSelected = ("assets/image/User_selected.svg");
 }

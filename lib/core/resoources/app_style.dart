@@ -7,6 +7,19 @@ class AppStyle {
 
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: ColorManager.lightbackground,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorManager.blue,
+      shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 4.w)),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: ColorManager.blue,
+      type: BottomNavigationBarType.fixed,
+      selectedLabelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+      unselectedLabelStyle: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
     appBarTheme: AppBarTheme(
       scrolledUnderElevation: 0,
       shadowColor: Colors.transparent,
@@ -54,6 +67,19 @@ class AppStyle {
   );
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: ColorManager.darkbackground,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorManager.darkbackground,
+      shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 4.w)),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: ColorManager.darkbackground,
+      type: BottomNavigationBarType.fixed,
+      selectedLabelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+      unselectedLabelStyle: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
     appBarTheme: AppBarTheme(
       scrolledUnderElevation: 0,
       shadowColor: Colors.transparent,

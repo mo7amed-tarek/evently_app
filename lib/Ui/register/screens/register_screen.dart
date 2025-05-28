@@ -1,6 +1,7 @@
 import 'package:evently_app/Ui/home/screens/home_screen.dart';
 import 'package:evently_app/Ui/login/screen/login_screen.dart';
 import 'package:evently_app/core/dialog_utils.dart';
+import 'package:evently_app/core/firestor_handler.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/core/resoources/constants.dart';
 import 'package:evently_app/core/resoources/strings_manager.dart';
@@ -9,6 +10,7 @@ import 'package:evently_app/core/reusable_components/custom_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:evently_app/model/users.dart' as MyUser;
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = "register";
@@ -210,6 +212,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             email: emailConroller.text,
             password: passConroller.text,
           );
+      await FirestorHandler.addUser(
+        MyUser.User(
+          name: nameConroller.text,
+          gender: _selectedGender,
+          email: emailConroller.text,
+          id: credential.user?.uid,
+        ),
+      );
       Navigator.pop(context);
       Navigator.pushNamedAndRemoveUntil(
         context,

@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:evently_app/Ui/home/screens/home_screen.dart';
 import 'package:evently_app/Ui/start_screen/screen/start_screen.dart';
+
 import 'package:evently_app/core/resoources/assets_manager.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -17,9 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, StartScreen.routeName);
-    });
+    navigateToNext();
   }
 
   @override
@@ -46,5 +47,17 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  navigateToNext() async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      Timer(Duration(seconds: 2), () {
+        Navigator.pushReplacementNamed(context, HomeScreen.routeNeme);
+      });
+    } else {
+      Timer(Duration(seconds: 2), () {
+        Navigator.pushReplacementNamed(context, StartScreen.routeName);
+      });
+    }
   }
 }
