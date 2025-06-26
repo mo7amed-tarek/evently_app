@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:evently_app/model/users.dart' as MyUser;
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart'; // اضفت هنا
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = "login";
@@ -60,15 +61,15 @@ class _RegisterScreenState extends State<LoginScreen> {
                 SizedBox(height: 24.h),
 
                 CustomField(
-                  hint: StringsManager.email,
+                  hint: StringsManager.email.tr(),
                   controller: emailController,
                   prefixpath: AssetsManager.email,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty;
+                      return StringsManager.shouldnotempty.tr();
                     }
                     if (!RegExp(emailRegex).hasMatch(value)) {
-                      return StringsManager.Emailnotvaliad;
+                      return StringsManager.Emailnotvaliad.tr();
                     }
                     return null;
                   },
@@ -76,16 +77,16 @@ class _RegisterScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 16.h),
                 CustomField(
-                  hint: StringsManager.password,
+                  hint: StringsManager.password.tr(),
                   obscure: true,
                   controller: passwordController,
                   prefixpath: AssetsManager.pass,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty;
+                      return StringsManager.shouldnotempty.tr();
                     }
                     if (value.length < 8) {
-                      return StringsManager.passvaladetion;
+                      return StringsManager.passvaladetion.tr();
                     }
                     return null;
                   },
@@ -102,7 +103,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                       );
                     },
                     child: Text(
-                      StringsManager.forgetPassword,
+                      StringsManager.forgetPassword.tr(),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                         decoration: TextDecoration.underline,
@@ -116,7 +117,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: CustomButton(
-                    title: StringsManager.login,
+                    title: StringsManager.login.tr(),
                     onClick: () {
                       if (formkay.currentState?.validate() ?? false) {
                         login();
@@ -129,7 +130,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      StringsManager.dontHaveAccount,
+                      StringsManager.dontHaveAccount.tr(),
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     TextButton(
@@ -137,7 +138,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                         Navigator.pushNamed(context, RegisterScreen.routeName);
                       },
                       child: Text(
-                        StringsManager.createAccount,
+                        StringsManager.createAccount.tr(),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                           decoration: TextDecoration.underline,
@@ -176,8 +177,8 @@ class _RegisterScreenState extends State<LoginScreen> {
       if (e.code == 'user-not-found') {
         DialogUtils.showMassegeDialog(
           context: context,
-          message: StringsManager.userNotFoundForEmail,
-          postitle: StringsManager.ok,
+          message: StringsManager.userNotFoundForEmail.tr(),
+          postitle: StringsManager.ok.tr(),
           posclick: () {
             Navigator.pop(context);
           },
@@ -185,8 +186,8 @@ class _RegisterScreenState extends State<LoginScreen> {
       } else if (e.code == 'wrong-password') {
         DialogUtils.showMassegeDialog(
           context: context,
-          message: StringsManager.wrongPassword,
-          postitle: StringsManager.ok,
+          message: StringsManager.wrongPassword.tr(),
+          postitle: StringsManager.ok.tr(),
           posclick: () {
             Navigator.pop(context);
           },

@@ -1,3 +1,4 @@
+import 'package:evently_app/Ui/create_event/screen/create_event_screen.dart';
 import 'package:evently_app/Ui/home/tabs/home_tab/home_tab.dart';
 import 'package:evently_app/Ui/home/tabs/love_tab/love_tab.dart';
 import 'package:evently_app/Ui/home/tabs/map_tab/map_tab.dart';
@@ -26,7 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, CreateEventScreen.routeName);
+        },
         child: Icon(Icons.add, color: Colors.white, size: 40),
       ),
       bottomNavigationBar: BottomNavigationBar(

@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/Ui/home/screens/home_screen.dart';
 import 'package:evently_app/Ui/login/screen/login_screen.dart';
 import 'package:evently_app/core/dialog_utils.dart';
 import 'package:evently_app/core/firestor_handler.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
+import 'package:evently_app/core/resoources/color_manager.dart';
 import 'package:evently_app/core/resoources/constants.dart';
 import 'package:evently_app/core/resoources/strings_manager.dart';
 import 'package:evently_app/core/reusable_components/custom_buttom.dart';
@@ -51,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(StringsManager.register)),
+      appBar: AppBar(title: Text(StringsManager.register.tr())),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -62,12 +64,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Image.asset(AssetsManager.logo),
                 SizedBox(height: 24.h),
                 CustomField(
-                  hint: StringsManager.name,
+                  hint: StringsManager.name.tr(),
                   controller: nameConroller,
                   prefixpath: AssetsManager.name,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty;
+                      return StringsManager.shouldnotempty.tr();
                     }
                     return null;
                   },
@@ -75,15 +77,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: 16.h),
                 CustomField(
-                  hint: StringsManager.email,
+                  hint: StringsManager.email.tr(),
                   controller: emailConroller,
                   prefixpath: AssetsManager.email,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty;
+                      return StringsManager.shouldnotempty.tr();
                     }
                     if (!RegExp(emailRegex).hasMatch(value)) {
-                      return StringsManager.Emailnotvaliad;
+                      return StringsManager.Emailnotvaliad.tr();
                     }
                     return null;
                   },
@@ -91,16 +93,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: 16.h),
                 CustomField(
-                  hint: StringsManager.password,
+                  hint: StringsManager.password.tr(),
                   obscure: true,
                   controller: passConroller,
                   prefixpath: AssetsManager.pass,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty;
+                      return StringsManager.shouldnotempty.tr();
                     }
                     if (value.length < 8) {
-                      return StringsManager.passvaladetion;
+                      return StringsManager.passvaladetion.tr();
                     }
                     return null;
                   },
@@ -108,13 +110,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: 16.h),
                 CustomField(
-                  hint: StringsManager.repassword,
+                  hint: StringsManager.repassword.tr(),
                   obscure: true,
                   controller: repassConroller,
                   prefixpath: AssetsManager.repass,
                   validation: (value) {
                     if (value != passConroller.text) {
-                      return StringsManager.passwordsDoNotMatch;
+                      return StringsManager.passwordsDoNotMatch.tr();
                     }
                     return null;
                   },
@@ -124,20 +126,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
-                    labelText: StringsManager.SelectGender,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                    labelText: StringsManager.selectGender.tr(),
+                    labelStyle: Theme.of(context).textTheme.titleSmall,
+                    hintStyle: Theme.of(context).textTheme.titleSmall,
                     contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 10,
+                      horizontal: 16.w,
+                      vertical: 14.h,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(color: ColorManager.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(color: ColorManager.grey),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
                     ),
                   ),
                   value: _selectedGender,
+                  style: Theme.of(context).textTheme.titleSmall,
                   items:
-                      [StringsManager.male, StringsManager.female].map((
-                        String value,
-                      ) {
+                      [
+                        StringsManager.male.tr(),
+                        StringsManager.female.tr(),
+                      ].map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -150,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.pleaseSelectGender;
+                      return StringsManager.pleaseSelectGender.tr();
                     }
                     return null;
                   },
@@ -161,7 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: CustomButton(
-                    title: StringsManager.createAccount,
+                    title: StringsManager.createAccount.tr(),
                     onClick: () {
                       if (formkay.currentState?.validate() ?? false) {
                         signup();
@@ -174,7 +197,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      StringsManager.alreadyHaveAccount,
+                      StringsManager.alreadyHaveAccount.tr(),
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     TextButton(
@@ -185,7 +208,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         );
                       },
                       child: Text(
-                        StringsManager.login,
+                        StringsManager.login.tr(),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                           decoration: TextDecoration.underline,
@@ -232,8 +255,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (e.code == 'weak-password') {
         DialogUtils.showMassegeDialog(
           context: context,
-          message: StringsManager.weakPassword,
-          postitle: StringsManager.ok,
+          message: StringsManager.weakPassword.tr(),
+          postitle: StringsManager.ok.tr(),
           posclick: () {
             Navigator.pop(context);
           },
@@ -241,8 +264,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } else if (e.code == 'email-already-in-use') {
         DialogUtils.showMassegeDialog(
           context: context,
-          message: StringsManager.emailAlreadyInUse,
-          postitle: StringsManager.ok,
+          message: StringsManager.emailAlreadyInUse.tr(),
+          postitle: StringsManager.ok.tr(),
           posclick: () {
             Navigator.pop(context);
           },

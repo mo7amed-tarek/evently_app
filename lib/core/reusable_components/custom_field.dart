@@ -10,7 +10,7 @@ class CustomField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType kyboard;
   final bool obscure;
-
+  final int maxlines;
   const CustomField({
     super.key,
     required this.validation,
@@ -19,6 +19,7 @@ class CustomField extends StatefulWidget {
     required this.prefixpath,
     required this.kyboard,
     this.obscure = false,
+    this.maxlines = 1,
   });
 
   @override
@@ -37,6 +38,8 @@ class _CustomFieldState extends State<CustomField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: widget.maxlines,
+
       validator: widget.validation,
       controller: widget.controller,
       style: Theme.of(context).textTheme.titleSmall,
@@ -63,18 +66,21 @@ class _CustomFieldState extends State<CustomField> {
           borderSide: BorderSide(color: ColorManager.grey),
         ),
         prefixIconConstraints: BoxConstraints(maxHeight: 80.h, maxWidth: 80.w),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 19),
-          child: SvgPicture.asset(
-            widget.prefixpath,
-            height: 32.h,
-            width: 32.w,
-            colorFilter: ColorFilter.mode(
-              Theme.of(context).colorScheme.onPrimaryContainer,
-              BlendMode.srcIn,
-            ),
-          ),
-        ),
+        prefixIcon:
+            widget.prefixpath.isNotEmpty
+                ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 19),
+                  child: SvgPicture.asset(
+                    widget.prefixpath,
+                    height: 32.h,
+                    width: 32.w,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.onPrimaryContainer,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                )
+                : null,
         suffixIcon:
             widget.obscure
                 ? IconButton(
