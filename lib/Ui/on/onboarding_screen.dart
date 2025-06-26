@@ -5,6 +5,7 @@ import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/model/onboarding_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart'; // <-- إضافة هذا
 
 class OnboardingScreen extends StatefulWidget {
   static const String routeName = "onbordingscreen";
@@ -71,20 +72,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 28.h),
                         Image.asset(
                           OnboardingContent.contents[index].image2(context),
+                          width: 350.w,
+                          height: 350.h,
                         ),
-                        SizedBox(height: 28.h),
+                        SizedBox(height: 25.h),
                         Text(
-                          OnboardingContent.contents[index].description,
+                          // استخدم الترجمة على المفاتيح
+                          OnboardingContent.contents[index].description.tr(),
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
-                        SizedBox(height: 28.h),
+                        SizedBox(height: 25.h),
                         Text(
                           OnboardingContent
                               .contents[index]
-                              .additionalDescription,
+                              .additionalDescription
+                              .tr(),
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
@@ -108,7 +112,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           shape: BoxShape.circle,
                           border: Border.all(
                             color: Theme.of(context).colorScheme.primary,
-                            width: 2,
+                            width: 2.w,
                           ),
                         ),
                         child: Icon(
@@ -118,7 +122,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                     ),
-                  // Dots Indicator
                   Expanded(
                     child: DotsIndicator(
                       dotsCount: OnboardingContent.contents.length,
@@ -143,7 +146,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: Theme.of(context).colorScheme.primary,
-                          width: 2,
+                          width: 2.w,
                         ),
                       ),
                       child: Icon(

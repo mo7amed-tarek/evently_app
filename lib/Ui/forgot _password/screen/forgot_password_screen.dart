@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/core/dialog_utils.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/core/resoources/constants.dart';
@@ -34,7 +35,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(StringsManager.forgetPassword)),
+      appBar: AppBar(title: Text(StringsManager.forgetPassword.tr())),
       body: Form(
         key: formkey,
         child: Padding(
@@ -44,15 +45,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               Image.asset(AssetsManager.forgot),
               SizedBox(height: 16.h),
               CustomField(
-                hint: StringsManager.email,
+                hint: StringsManager.email.tr(),
                 controller: emailConroller,
                 prefixpath: AssetsManager.email,
                 validation: (value) {
                   if (value == null || value.isEmpty) {
-                    return StringsManager.shouldnotempty;
+                    return StringsManager.shouldnotempty.tr();
                   }
                   if (!RegExp(emailRegex).hasMatch(value)) {
-                    return StringsManager.Emailnotvaliad;
+                    return StringsManager.Emailnotvaliad.tr();
                   }
                   return null;
                 },
@@ -62,7 +63,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  title: StringsManager.resetPassword,
+                  title: StringsManager.resetPassword.tr(),
                   onClick: () async {
                     if (formkey.currentState?.validate() ?? false) {
                       DialogUtils.showLodingDialog(context);
@@ -70,7 +71,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         email: emailConroller.text,
                       );
                       Navigator.pop(context);
-                      DialogUtils.showtoast(StringsManager.linksentsucessful);
+                      DialogUtils.showtoast(
+                        StringsManager.linksentsucessful.tr(),
+                      );
                     }
                   },
                 ),

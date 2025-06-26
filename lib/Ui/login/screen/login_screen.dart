@@ -2,14 +2,19 @@ import 'package:evently_app/Ui/forgot%20_password/screen/forgot_password_screen.
 import 'package:evently_app/Ui/home/screens/home_screen.dart';
 import 'package:evently_app/Ui/register/screens/register_screen.dart';
 import 'package:evently_app/core/dialog_utils.dart';
+import 'package:evently_app/core/firestor_handler.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
 import 'package:evently_app/core/resoources/constants.dart';
 import 'package:evently_app/core/resoources/strings_manager.dart';
 import 'package:evently_app/core/reusable_components/custom_buttom.dart';
 import 'package:evently_app/core/reusable_components/custom_field.dart';
+import 'package:evently_app/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:evently_app/model/users.dart' as MyUser;
+import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart'; // اضفت هنا
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = "login";
@@ -21,24 +26,24 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<LoginScreen> {
-  late TextEditingController emailConroller;
-  late TextEditingController passConroller;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
 
   GlobalKey<FormState> formkay = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
 
-    emailConroller = TextEditingController();
-    passConroller = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    emailConroller.dispose();
-    passConroller.dispose();
+    emailController.dispose();
+    passwordController.dispose();
   }
 
   @override
@@ -56,15 +61,15 @@ class _RegisterScreenState extends State<LoginScreen> {
                 SizedBox(height: 24.h),
 
                 CustomField(
-                  hint: StringsManager.email,
-                  controller: emailConroller,
+                  hint: StringsManager.email.tr(),
+                  controller: emailController,
                   prefixpath: AssetsManager.email,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty;
+                      return StringsManager.shouldnotempty.tr();
                     }
                     if (!RegExp(emailRegex).hasMatch(value)) {
-                      return StringsManager.Emailnotvaliad;
+                      return StringsManager.Emailnotvaliad.tr();
                     }
                     return null;
                   },
@@ -72,16 +77,16 @@ class _RegisterScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 16.h),
                 CustomField(
-                  hint: StringsManager.password,
+                  hint: StringsManager.password.tr(),
                   obscure: true,
-                  controller: passConroller,
+                  controller: passwordController,
                   prefixpath: AssetsManager.pass,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty;
+                      return StringsManager.shouldnotempty.tr();
                     }
                     if (value.length < 8) {
-                      return StringsManager.passvaladetion;
+                      return StringsManager.passvaladetion.tr();
                     }
                     return null;
                   },
@@ -98,7 +103,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                       );
                     },
                     child: Text(
-                      StringsManager.forgetPassword,
+                      StringsManager.forgetPassword.tr(),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                         decoration: TextDecoration.underline,
@@ -112,7 +117,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: CustomButton(
-                    title: StringsManager.login,
+                    title: StringsManager.login.tr(),
                     onClick: () {
                       if (formkay.currentState?.validate() ?? false) {
                         login();
@@ -125,7 +130,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      StringsManager.dontHaveAccount,
+                      StringsManager.dontHaveAccount.tr(),
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     TextButton(
@@ -133,7 +138,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                         Navigator.pushNamed(context, RegisterScreen.routeName);
                       },
                       child: Text(
-                        StringsManager.createAccount,
+                        StringsManager.createAccount.tr(),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                           decoration: TextDecoration.underline,
@@ -153,12 +158,17 @@ class _RegisterScreenState extends State<LoginScreen> {
   }
 
   login() async {
+    UserProvider provider = Provider.of<UserProvider>(context, listen: false);
     try {
       DialogUtils.showLodingDialog(context);
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailConroller.text,
-        password: passConroller.text,
+        email: emailController.text,
+        password: passwordController.text,
       );
+      MyUser.User? myUser = await FirestorHandler.getUser(
+        credential.user?.uid ?? "",
+      );
+      provider.savaUser(myUser);
       Navigator.pop(context);
       Navigator.pushReplacementNamed(context, HomeScreen.routeNeme);
       print(credential.user?.uid);
@@ -167,8 +177,8 @@ class _RegisterScreenState extends State<LoginScreen> {
       if (e.code == 'user-not-found') {
         DialogUtils.showMassegeDialog(
           context: context,
-          message: StringsManager.userNotFoundForEmail,
-          postitle: StringsManager.ok,
+          message: StringsManager.userNotFoundForEmail.tr(),
+          postitle: StringsManager.ok.tr(),
           posclick: () {
             Navigator.pop(context);
           },
@@ -176,8 +186,8 @@ class _RegisterScreenState extends State<LoginScreen> {
       } else if (e.code == 'wrong-password') {
         DialogUtils.showMassegeDialog(
           context: context,
-          message: StringsManager.wrongPassword,
-          postitle: StringsManager.ok,
+          message: StringsManager.wrongPassword.tr(),
+          postitle: StringsManager.ok.tr(),
           posclick: () {
             Navigator.pop(context);
           },

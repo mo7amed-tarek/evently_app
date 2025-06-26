@@ -1,45 +1,58 @@
-import 'package:easy_localization/easy_localization.dart';
-
 abstract final class StringsManager {
-  static String get startTitle => 'startTitle'.tr();
-  static String get startDesc => 'startDesc'.tr();
-  static String get language => 'language'.tr();
-  static String get theme => 'theme'.tr();
-  static String get letsStart => 'letsStart'.tr();
+  static const String startTitle = 'startTitle';
+  static const String startDesc = 'startDesc';
+  static const String language = 'language';
+  static const String theme = 'theme';
+  static const String letsStart = 'letsStart';
 
-  static String get onTitle1 => 'on_title'.tr();
-  static String get onDesc1 => 'on_description'.tr();
-  static String get onTitle2 => 'on_title2'.tr();
-  static String get onDesc2 => 'on_description2'.tr();
-  static String get onTitle3 => 'on_title3'.tr();
-  static String get onDesc3 => 'on_description3'.tr();
+  static const String onTitle1 = 'on_title';
+  static const String onDesc1 = 'on_description';
+  static const String onTitle2 = 'on_title2';
+  static const String onDesc2 = 'on_description2';
+  static const String onTitle3 = 'on_title3';
+  static const String onDesc3 = 'on_description3';
 
-  static String get register => 'register'.tr();
-  static String get name => 'name'.tr();
-  static String get email => 'email'.tr();
-  static String get password => 'password'.tr();
-  static String get repassword => 'repassword'.tr();
-  static String get createAccount => 'Create Account'.tr();
-  static String get alreadyHaveAccount => 'Already Have Account ?'.tr();
-  static String get login => "login".tr();
-  static String get dontHaveAccount => 'Don’t Have Account ?'.tr();
-  static String get forgetPassword => 'Forget Password?'.tr();
-  static String get resetPassword => 'Reset Password'.tr();
-  static String get shouldnotempty => 'should not be empty'.tr();
-  static String get Emailnotvaliad => 'Email not valiad'.tr();
-  static String get passvaladetion =>
-      'Password shoulnt be less than 8 char'.tr();
-  static String get userNotFoundForEmail => 'No user found for that email'.tr();
-  static String get ok => 'OK'.tr();
-  static String get wrongPassword =>
-      'Wrong password provided for that user.'.tr();
-  static String get linksentsucessful => 'link sent sucessful'.tr();
-  static String get passwordsDoNotMatch => 'Passwords do not match.'.tr();
-  static String get weakPassword => 'The password provided is too weak.'.tr();
-  static String get emailAlreadyInUse =>
-      'The account already exists for that email.'.tr();
-  static String get SelectGender => 'Select Gender'.tr();
-  static String get male => 'Male'.tr();
-  static String get female => 'female'.tr();
-  static String get pleaseSelectGender => "Please select a gender".tr();
+  static const String register = 'register';
+  static const String name = 'name';
+  static const String email = 'email';
+  static const String password = 'password';
+  static const String repassword = 'repassword';
+  static const String createAccount = 'Create Account';
+  static const String alreadyHaveAccount = 'Already Have Account ?';
+  static const String login = "login";
+  static const String dontHaveAccount = 'Don’t Have Account ?';
+  static const String forgetPassword = 'Forget Password?';
+  static const String resetPassword = 'Reset Password';
+  static const String shouldnotempty = 'should not be empty';
+  static const String Emailnotvaliad = 'Email not valiad';
+  static const String passvaladetion = 'Password shoulnt be less than 8 char';
+  static const String userNotFoundForEmail = 'No user found for that email';
+  static const String ok = 'OK';
+  static const String wrongPassword = 'Wrong password provided for that user.';
+  static const String linksentsucessful = 'link sent sucessful';
+  static const String passwordsDoNotMatch = 'Passwords do not match.';
+  static const String weakPassword = 'The password provided is too weak.';
+  static const String emailAlreadyInUse =
+      'The account already exists for that email.';
+  static const String selectGender = 'selectGender';
+  static const String male = 'male';
+  static const String female = 'female';
+  static const String pleaseSelectGender = 'pleaseSelectGender';
+  static const String birthday = 'This is a Birthday Party';
+  static const String welcome = 'Welcome Back ✨';
+  static const String createEvent = 'Create Event';
+  static const String titel = 'Title';
+  static const String eventtitle = ' Event Title';
+  static const String desc = ' Description';
+  static const String eventdesc = 'Event Description';
+  static const String eventdate = 'Event Date';
+  static const String choosedate = 'Choose Date';
+  static const String eventtime = 'Event Time';
+  static const String choosetime = 'Choose Time';
+  static const String location = 'Location';
+  static const String chooseeventlocation = 'Choose Event Location';
+  static const String addevent = 'Add Event';
+  static const String chooseeventdate = 'Choose Event Date';
+  static const String chooseeventtime = 'Choose Event Time';
+  static const String eventadded = 'Event Added Successfully';
 }

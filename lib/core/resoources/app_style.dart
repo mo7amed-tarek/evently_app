@@ -7,6 +7,22 @@ class AppStyle {
 
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: ColorManager.lightbackground,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorManager.blue,
+      shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 4.w)),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: ColorManager.blue,
+      type: BottomNavigationBarType.fixed,
+      selectedLabelStyle: TextStyle(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w400,
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
     appBarTheme: AppBarTheme(
       scrolledUnderElevation: 0,
       shadowColor: Colors.transparent,
@@ -14,7 +30,7 @@ class AppStyle {
       centerTitle: true,
       titleTextStyle: TextStyle(
         fontWeight: FontWeight.w400,
-        fontSize: 22,
+        fontSize: 22.sp,
         color: ColorManager.black,
       ),
     ),
@@ -27,6 +43,7 @@ class AppStyle {
       brightness: Brightness.light,
       onPrimary: Colors.white,
       onPrimaryContainer: ColorManager.grey,
+      primaryContainer: ColorManager.blue,
     ),
 
     textTheme: TextTheme(
@@ -46,7 +63,7 @@ class AppStyle {
         fontSize: 16.sp,
       ),
       titleSmall: TextStyle(
-        fontSize: 16,
+        fontSize: 16.sp,
         fontWeight: FontWeight.w500,
         color: ColorManager.grey,
       ),
@@ -54,6 +71,22 @@ class AppStyle {
   );
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: ColorManager.darkbackground,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorManager.darkbackground,
+      shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 4.w)),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: ColorManager.darkbackground,
+      type: BottomNavigationBarType.fixed,
+      selectedLabelStyle: TextStyle(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w400,
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
     appBarTheme: AppBarTheme(
       scrolledUnderElevation: 0,
       shadowColor: Colors.transparent,
@@ -61,7 +94,7 @@ class AppStyle {
       centerTitle: true,
       titleTextStyle: TextStyle(
         fontWeight: FontWeight.w400,
-        fontSize: 22,
+        fontSize: 22.sp,
         color: ColorManager.blue,
       ),
     ),
@@ -73,6 +106,7 @@ class AppStyle {
       brightness: Brightness.dark,
       onPrimary: Colors.black,
       onPrimaryContainer: ColorManager.withe,
+      primaryContainer: ColorManager.darkbackground,
     ),
     textTheme: TextTheme(
       labelMedium: TextStyle(
@@ -91,7 +125,7 @@ class AppStyle {
         fontSize: 16.sp,
       ),
       titleSmall: TextStyle(
-        fontSize: 16,
+        fontSize: 16.sp,
         fontWeight: FontWeight.w500,
         color: ColorManager.withe,
       ),

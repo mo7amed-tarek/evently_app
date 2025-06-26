@@ -1,3 +1,4 @@
+import 'package:evently_app/Ui/create_event/screen/create_event_screen.dart';
 import 'package:evently_app/Ui/forgot%20_password/screen/forgot_password_screen.dart';
 import 'package:evently_app/Ui/home/screens/home_screen.dart';
 import 'package:evently_app/Ui/login/screen/login_screen.dart';
@@ -6,7 +7,8 @@ import 'package:evently_app/Ui/register/screens/register_screen.dart';
 import 'package:evently_app/core/prefs_manager.dart';
 import 'package:evently_app/firebase_options.dart';
 import 'package:evently_app/providers/theme_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:evently_app/providers/user_provider.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,8 +31,11 @@ void main() async {
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
 
-      child: ChangeNotifierProvider(
-        create: (context) => themeprovider()..init(),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => themeprovider()..init()),
+          ChangeNotifierProvider(create: (context) => UserProvider()),
+        ],
 
         child: const MyApp(),
       ),
@@ -65,11 +70,9 @@ class MyApp extends StatelessWidget {
             LoginScreen.routeName: (_) => const LoginScreen(),
             ForgotPasswordScreen.routeName: (_) => const ForgotPasswordScreen(),
             HomeScreen.routeNeme: (_) => const HomeScreen(),
+            CreateEventScreen.routeName: (_) => const CreateEventScreen(),
           },
-          initialRoute:
-              FirebaseAuth.instance.currentUser != null
-                  ? HomeScreen.routeNeme
-                  : SplashScreen.routeName,
+          initialRoute: SplashScreen.routeName,
         );
       },
     );

@@ -51,12 +51,12 @@ class _StartScreenState extends State<StartScreen> {
               ),
               SizedBox(height: 28.h),
               Text(
-                StringsManager.startTitle,
+                StringsManager.startTitle.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(height: 28.h),
               Text(
-                StringsManager.startDesc,
+                StringsManager.startDesc.tr(),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               SizedBox(height: 28.h),
@@ -64,7 +64,7 @@ class _StartScreenState extends State<StartScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    StringsManager.language,
+                    StringsManager.language.tr(),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
@@ -93,7 +93,7 @@ class _StartScreenState extends State<StartScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    StringsManager.theme,
+                    StringsManager.theme.tr(),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
@@ -120,7 +120,7 @@ class _StartScreenState extends State<StartScreen> {
               ),
               SizedBox(height: 28.h),
               CustomButton(
-                title: StringsManager.letsStart,
+                title: StringsManager.letsStart.tr(),
                 onClick: () {
                   Navigator.push(
                     context,
