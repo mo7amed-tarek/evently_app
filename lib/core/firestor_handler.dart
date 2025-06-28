@@ -73,4 +73,41 @@ class FirestorHandler {
         .snapshots()
         .map((snap) => snap.docs.map((e) => e.data()).toList());
   }
+
+  static CollectionReference<Event> getwishListCollection(String userId) {
+    var userCollection = getUserCollection();
+    var userDocument = userCollection.doc(userId);
+
+    return userDocument
+        .collection('wishlist')
+        .withConverter<Event>(
+          fromFirestore: (snap, _) => Event.fromFireStore(snap.data(), snap.id),
+          toFirestore: (event, _) => event.toFirestore(),
+        );
+  }
+
+  static Future<void> addfavoriteEvent(String userId, Event event) {
+    var collection = getwishListCollection(userId);
+    var doc = collection.doc(event.id);
+    return doc.set(event);
+  }
+
+  static Future<void> removefavoriteEvent(String userId, Event event) {
+    var collection = getwishListCollection(userId);
+    var doc = collection.doc(event.id);
+    return doc.delete();
+  }
+
+  static Stream<List<Event>> getWishListStream(userId) {
+    return getwishListCollection(userId)
+        .orderBy('date', descending: false)
+        .snapshots()
+        .map((snap) => snap.docs.map((e) => e.data()).toList());
+  }
+
+  static Future<void> updateEventFavorite(Event event) {
+    var eventCollection = getEventCollection();
+    var eventDoc = eventCollection.doc(event.id);
+    return eventDoc.update({"favoriteUsers": event.favoriteUsers});
+  }
 }

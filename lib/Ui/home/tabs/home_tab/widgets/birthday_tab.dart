@@ -53,8 +53,8 @@ class BirthdayTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Event>>(
-      future: FirestorHandler.getEventsByType('birthday'),
+    return StreamBuilder<List<Event>>(
+      stream: FirestorHandler.streamEventsByType('birthday'),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
