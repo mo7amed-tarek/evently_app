@@ -3,15 +3,14 @@ import 'package:evently_app/core/firestor_handler.dart';
 import 'package:evently_app/model/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 
 class AllTab extends StatelessWidget {
   const AllTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Event>>(
-      future: FirestorHandler.getEventsByType('all'),
+    return StreamBuilder<List<Event>>(
+      stream: FirestorHandler.streamEventsByType('all'),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -26,12 +25,6 @@ class AllTab extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Lottie.asset(
-                  'assets/animations/empty.json',
-                  width: 200.w,
-                  height: 200.h,
-                ),
-                SizedBox(height: 16.h),
                 Text(
                   'No events found',
                   style: TextStyle(
@@ -45,7 +38,7 @@ class AllTab extends StatelessWidget {
           );
         }
 
-        final events = snapshot.data ?? const <Event>[];
+        final events = snapshot.data!;
 
         return ListView.separated(
           padding: EdgeInsets.all(16.w),

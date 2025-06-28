@@ -1,4 +1,3 @@
-// lib/Ui/home/tabs/home_tab/widgets/book_tab.dart
 import 'package:evently_app/Ui/home/widgets/event_item.dart';
 import 'package:evently_app/core/firestor_handler.dart';
 import 'package:evently_app/model/event.dart';
@@ -55,8 +54,8 @@ class BookTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Event>>(
-      future: FirestorHandler.getEventsByType('book'),
+    return StreamBuilder<List<Event>>(
+      stream: FirestorHandler.streamEventsByType('book'),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -68,7 +67,7 @@ class BookTab extends StatelessWidget {
           return const Center(child: _EmptyListAnimation());
         }
 
-        final events = snapshot.data ?? const <Event>[];
+        final events = snapshot.data!;
 
         return ListView.separated(
           padding: EdgeInsets.all(16.w),

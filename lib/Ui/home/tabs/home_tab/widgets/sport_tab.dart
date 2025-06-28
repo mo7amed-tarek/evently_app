@@ -53,8 +53,8 @@ class SportTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Event>>(
-      future: FirestorHandler.getEventsByType('sport'),
+    return StreamBuilder<List<Event>>(
+      stream: FirestorHandler.streamEventsByType('sport'),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());

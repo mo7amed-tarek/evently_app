@@ -39,4 +39,5 @@ abstract final class AssetsManager {
   static const String clock = ("assets/image/Clock.svg");
   static const String calender = ("assets/image/Calendar_Days.svg");
   static const String location = ("assets/image/location.svg");
+  static const String search = ("assets/image/Search.svg");
 }
