@@ -74,12 +74,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         Image.asset(
                           OnboardingContent.contents[index].image2(context),
-                          width: 350.w,
-                          height: 350.h,
+                          width: 300.w,
+                          height: 300.h,
                         ),
                         SizedBox(height: 25.h),
                         Text(
-                          // استخدم الترجمة على المفاتيح
                           OnboardingContent.contents[index].description.tr(),
                           style: Theme.of(context).textTheme.titleMedium,
                         ),

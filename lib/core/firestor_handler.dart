@@ -13,8 +13,7 @@ class FirestorHandler {
   }
 
   static Future<void> addUser(MyUser.User user) {
-    final doc = getUserCollection().doc(user.id);
-    return doc.set(user);
+    return getUserCollection().doc(user.id).set(user);
   }
 
   static Future<MyUser.User?> getUser(String uid) async {
@@ -61,7 +60,6 @@ class FirestorHandler {
     final col = getEventCollection();
     final query =
         type.toLowerCase() == 'all' ? col : col.where('type', isEqualTo: type);
-
     return query.snapshots().map(
       (snap) => snap.docs.map((e) => e.data()).toList(),
     );
@@ -74,11 +72,17 @@ class FirestorHandler {
         .map((snap) => snap.docs.map((e) => e.data()).toList());
   }
 
-  static CollectionReference<Event> getwishListCollection(String userId) {
-    var userCollection = getUserCollection();
-    var userDocument = userCollection.doc(userId);
+  static Future<void> updateEvent(Event event) {
+    return getEventCollection().doc(event.id).update(event.toFirestore());
+  }
 
-    return userDocument
+  static Future<void> deleteEvent(String eventId) {
+    return getEventCollection().doc(eventId).delete();
+  }
+
+  static CollectionReference<Event> getwishListCollection(String userId) {
+    return getUserCollection()
+        .doc(userId)
         .collection('wishlist')
         .withConverter<Event>(
           fromFirestore: (snap, _) => Event.fromFireStore(snap.data(), snap.id),
@@ -87,18 +91,14 @@ class FirestorHandler {
   }
 
   static Future<void> addfavoriteEvent(String userId, Event event) {
-    var collection = getwishListCollection(userId);
-    var doc = collection.doc(event.id);
-    return doc.set(event);
+    return getwishListCollection(userId).doc(event.id).set(event);
   }
 
   static Future<void> removefavoriteEvent(String userId, Event event) {
-    var collection = getwishListCollection(userId);
-    var doc = collection.doc(event.id);
-    return doc.delete();
+    return getwishListCollection(userId).doc(event.id).delete();
   }
 
-  static Stream<List<Event>> getWishListStream(userId) {
+  static Stream<List<Event>> getWishListStream(String userId) {
     return getwishListCollection(userId)
         .orderBy('date', descending: false)
         .snapshots()
@@ -106,8 +106,8 @@ class FirestorHandler {
   }
 
   static Future<void> updateEventFavorite(Event event) {
-    var eventCollection = getEventCollection();
-    var eventDoc = eventCollection.doc(event.id);
-    return eventDoc.update({"favoriteUsers": event.favoriteUsers});
+    return getEventCollection().doc(event.id).update({
+      "favoriteUsers": event.favoriteUsers,
+    });
   }
 }

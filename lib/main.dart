@@ -1,6 +1,9 @@
 import 'package:evently_app/Ui/create_event/screen/create_event_screen.dart';
 import 'package:evently_app/Ui/forgot%20_password/screen/forgot_password_screen.dart';
 import 'package:evently_app/Ui/home/screens/home_screen.dart';
+import 'package:evently_app/Ui/home/tabs/map_tab/provider/maps_tab_provider.dart';
+
+import 'package:evently_app/Ui/home/tabs/profile_tab/profile_tab.dart';
 import 'package:evently_app/Ui/login/screen/login_screen.dart';
 import 'package:evently_app/Ui/on/onboarding_screen.dart';
 import 'package:evently_app/Ui/register/screens/register_screen.dart';
@@ -35,6 +38,7 @@ void main() async {
         providers: [
           ChangeNotifierProvider(create: (context) => themeprovider()..init()),
           ChangeNotifierProvider(create: (context) => UserProvider()),
+          ChangeNotifierProvider(create: (context) => MapsTabProvider()),
         ],
 
         child: const MyApp(),
@@ -71,6 +75,7 @@ class MyApp extends StatelessWidget {
             ForgotPasswordScreen.routeName: (_) => const ForgotPasswordScreen(),
             HomeScreen.routeNeme: (_) => const HomeScreen(),
             CreateEventScreen.routeName: (_) => const CreateEventScreen(),
+            ProfileTab.routeName: (_) => const ProfileTab(),
           },
           initialRoute: SplashScreen.routeName,
         );
