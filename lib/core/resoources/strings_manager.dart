@@ -56,4 +56,5 @@ abstract final class StringsManager {
   static const String chooseeventtime = 'Choose Event Time';
   static const String eventadded = 'Event Added Successfully';
   static const String search = 'Search For Event';
+  static const String logout = 'Logout';
 }

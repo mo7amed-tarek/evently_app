@@ -11,11 +11,13 @@ import 'package:evently_app/core/resoources/color_manager.dart';
 import 'package:evently_app/core/resoources/strings_manager.dart';
 import 'package:evently_app/model/users.dart' as MyUser;
 import 'package:evently_app/providers/user_provider.dart';
+import 'package:evently_app/providers/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -43,19 +45,116 @@ class _HomeTabState extends State<HomeTab> {
     }
   }
 
+  void _showThemeSheet() {
+    final themeProv = context.read<themeprovider>();
+    final current = themeProv.themeMode;
+
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: const Text('Light'),
+              trailing:
+                  current == ThemeMode.light ? const Icon(Icons.check) : null,
+              onTap: () {
+                themeProv.changetheme(ThemeMode.light);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Dark'),
+              trailing:
+                  current == ThemeMode.dark ? const Icon(Icons.check) : null,
+              onTap: () {
+                themeProv.changetheme(ThemeMode.dark);
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showLanguageSheet() {
+    final current = context.locale.languageCode;
+
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: const Text('English'),
+              trailing: current == 'en' ? const Icon(Icons.check) : null,
+              onTap: () async {
+                await context.setLocale(const Locale('en'));
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('العربية'),
+              trailing: current == 'ar' ? const Icon(Icons.check) : null,
+              onTap: () async {
+                await context.setLocale(const Locale('ar'));
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildTab(IconData icon, String asset, String label, int index) {
+    return Tab(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 10),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              asset,
+              colorFilter: ColorFilter.mode(
+                selectedIndex == index ? ColorManager.blue : Colors.white,
+                BlendMode.srcIn,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Text(label),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     UserProvider provider = Provider.of<UserProvider>(context);
+
     return DefaultTabController(
       length: 4,
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
+            padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
             width: double.infinity,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(24),
                 bottomRight: Radius.circular(24),
               ),
@@ -90,18 +189,18 @@ class _HomeTabState extends State<HomeTab> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                           ],
                         ),
                       ),
                       Row(
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: _showThemeSheet,
                             icon: SvgPicture.asset(AssetsManager.sunLight),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: _showLanguageSheet,
                             icon: SvgPicture.asset(AssetsManager.enLight),
                           ),
                         ],
@@ -111,6 +210,7 @@ class _HomeTabState extends State<HomeTab> {
                   Row(
                     children: [
                       SvgPicture.asset(AssetsManager.map),
+                      const SizedBox(width: 5),
                       Text(
                         "Tanta , Egypt",
                         style: Theme.of(
@@ -122,7 +222,7 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: TabBar(
@@ -133,7 +233,6 @@ class _HomeTabState extends State<HomeTab> {
                       },
                       isScrollable: true,
                       dividerHeight: 0,
-                      labelPadding: EdgeInsets.only(right: 10),
                       tabAlignment: TabAlignment.start,
                       unselectedLabelColor: Colors.white,
                       labelColor: Theme.of(context).colorScheme.primary,
@@ -165,7 +264,7 @@ class _HomeTabState extends State<HomeTab> {
           ),
           Expanded(
             child: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 all.AllTab(),
                 sport.SportTab(),
@@ -175,31 +274,6 @@ class _HomeTabState extends State<HomeTab> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildTab(IconData icon, String asset, String label, int index) {
-    return Tab(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 10),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              asset,
-              colorFilter: ColorFilter.mode(
-                selectedIndex == index ? ColorManager.blue : Colors.white,
-                BlendMode.srcIn,
-              ),
-            ),
-            SizedBox(width: 10),
-            Text(label),
-          ],
-        ),
       ),
     );
   }
