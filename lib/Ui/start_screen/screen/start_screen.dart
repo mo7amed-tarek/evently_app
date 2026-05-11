@@ -51,12 +51,12 @@ class _StartScreenState extends State<StartScreen> {
               ),
               SizedBox(height: 28.h),
               Text(
-                StringsManager.startTitle.tr(),
+                StringsManager.start_title.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(height: 28.h),
               Text(
-                StringsManager.startDesc.tr(),
+                StringsManager.start_desc.tr(),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               SizedBox(height: 28.h),
@@ -120,7 +120,7 @@ class _StartScreenState extends State<StartScreen> {
               ),
               SizedBox(height: 28.h),
               CustomButton(
-                title: StringsManager.letsStart.tr(),
+                title: StringsManager.lets_start.tr(),
                 onClick: () {
                   Navigator.push(
                     context,

@@ -55,15 +55,15 @@ class _CustomFieldState extends State<CustomField> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: ColorManager.grey),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: ColorManager.grey),
+          borderSide: BorderSide(color: ColorManager.red),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: ColorManager.grey),
+          borderSide: BorderSide(color: ColorManager.red),
         ),
         prefixIconConstraints: BoxConstraints(maxHeight: 80.h, maxWidth: 80.w),
         prefixIcon:

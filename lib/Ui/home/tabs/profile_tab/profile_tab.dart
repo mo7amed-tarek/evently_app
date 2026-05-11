@@ -1,15 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:evently_app/Ui/login/screen/login_screen.dart';
+import 'package:evently_app/core/firestor_handler.dart';
+import 'package:evently_app/core/prefs_manager.dart';
+import 'package:evently_app/core/resoources/color_manager.dart';
+import 'package:evently_app/core/resoources/strings_manager.dart';
+import 'package:evently_app/providers/theme_provider.dart';
+import 'package:evently_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'package:evently_app/core/prefs_manager.dart';
-import 'package:evently_app/core/resoources/strings_manager.dart';
-import 'package:evently_app/providers/theme_provider.dart';
-import 'package:evently_app/providers/user_provider.dart';
 
 class ProfileTab extends StatefulWidget {
   static const String routeName = '/profile';
@@ -39,10 +41,40 @@ class _ProfileTabState extends State<ProfileTab> {
   Future<void> _pickImage() async {
     final XFile? picked = await _picker.pickImage(
       source: ImageSource.gallery,
-      imageQuality: 80,
+      maxWidth: 400, // Limit resolution
+      maxHeight: 400,
+      imageQuality: 30, // Significant compression
     );
     if (picked != null) {
-      context.read<UserProvider>().setProfileImage(picked.path);
+      final userProv = context.read<UserProvider>();
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid == null) return;
+
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const Center(child: CircularProgressIndicator()),
+      );
+
+      try {
+        final bytes = await File(picked.path).readAsBytes();
+        final base64Image = base64Encode(bytes);
+        
+        await FirestorHandler.updateUserProfileImage(uid, base64Image);
+        
+        if (userProv.myUser != null) {
+          userProv.myUser!.profileImage = base64Image;
+          userProv.notifyListeners();
+        }
+        
+        userProv.setProfileImage(picked.path);
+        Navigator.pop(context);
+      } catch (e) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Save failed: $e')),
+        );
+      }
     }
   }
 
@@ -52,22 +84,38 @@ class _ProfileTabState extends State<ProfileTab> {
     final themeProv = context.watch<themeprovider>();
     final cs = Theme.of(context).colorScheme;
 
-    final avatar =
-        userProv.profileImagePath != null
-            ? ClipRRect(
-              borderRadius: BorderRadius.circular(40),
-              child: Image.file(
-                File(userProv.profileImagePath!),
-                width: 80,
-                height: 80,
-                fit: BoxFit.cover,
-              ),
-            )
-            : CircleAvatar(
-              radius: 40,
-              backgroundColor: cs.surfaceVariant,
-              child: Icon(Icons.person, size: 40, color: cs.primary),
-            );
+    Widget buildAvatar() {
+      if (userProv.myUser?.profileImage != null && 
+          userProv.myUser!.profileImage!.length > 100) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(40),
+          child: Image.memory(
+            base64Decode(userProv.myUser!.profileImage!),
+            width: 80,
+            height: 80,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) => _defaultAvatar(cs),
+          ),
+        );
+      }
+      
+      if (userProv.profileImagePath != null) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(40),
+          child: Image.file(
+            File(userProv.profileImagePath!),
+            width: 80,
+            height: 80,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) => _defaultAvatar(cs),
+          ),
+        );
+      }
+      
+      return _defaultAvatar(cs);
+    }
+
+    final avatar = buildAvatar();
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -122,9 +170,9 @@ class _ProfileTabState extends State<ProfileTab> {
             child: DropdownButtonFormField<String>(
               isExpanded: true,
               value: _currentLangCode,
-              items: const [
-                DropdownMenuItem(value: 'ar', child: Text('العربية')),
-                DropdownMenuItem(value: 'en', child: Text('English')),
+              items: [
+                DropdownMenuItem(value: 'ar', child: Text(StringsManager.arabic.tr())),
+                DropdownMenuItem(value: 'en', child: Text(StringsManager.english.tr())),
               ],
               onChanged: (code) async {
                 if (code == null) return;
@@ -140,9 +188,9 @@ class _ProfileTabState extends State<ProfileTab> {
             child: DropdownButtonFormField<ThemeMode>(
               isExpanded: true,
               value: _currentTheme,
-              items: const [
-                DropdownMenuItem(value: ThemeMode.light, child: Text('Light')),
-                DropdownMenuItem(value: ThemeMode.dark, child: Text('Dark')),
+              items: [
+                DropdownMenuItem(value: ThemeMode.light, child: Text(StringsManager.light.tr())),
+                DropdownMenuItem(value: ThemeMode.dark, child: Text(StringsManager.dark.tr())),
               ],
               onChanged: (mode) {
                 if (mode == null) return;
@@ -173,7 +221,7 @@ class _ProfileTabState extends State<ProfileTab> {
               icon: const Icon(Icons.logout),
               label: Text(StringsManager.logout.tr()),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+                backgroundColor: ColorManager.red,
                 foregroundColor: Colors.white,
                 minimumSize: const Size.fromHeight(54),
                 shape: RoundedRectangleBorder(
@@ -187,6 +235,12 @@ class _ProfileTabState extends State<ProfileTab> {
     );
   }
 
+  Widget _defaultAvatar(ColorScheme cs) => CircleAvatar(
+        radius: 40,
+        backgroundColor: cs.surfaceVariant,
+        child: Icon(Icons.person, size: 40, color: cs.primary),
+      );
+
   Padding _title(String txt) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16.0),
     child: Text(
@@ -197,7 +251,7 @@ class _ProfileTabState extends State<ProfileTab> {
 
   InputDecoration _decoration(ColorScheme cs) => InputDecoration(
     filled: true,
-    fillColor: cs.surface,
+    fillColor: Colors.transparent,
     contentPadding: const EdgeInsets.fromLTRB(12, 18, 40, 18),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
@@ -205,7 +259,11 @@ class _ProfileTabState extends State<ProfileTab> {
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
-      borderSide: BorderSide(color: cs.primary),
+      borderSide: BorderSide(color: cs.primary, width: 2),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(color: cs.primary, width: 2),
     ),
   );
 }

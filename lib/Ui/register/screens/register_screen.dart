@@ -69,7 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixpath: AssetsManager.name,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty.tr();
+                      return StringsManager.should_not_empty.tr();
                     }
                     return null;
                   },
@@ -82,10 +82,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixpath: AssetsManager.email,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty.tr();
+                      return StringsManager.should_not_empty.tr();
                     }
                     if (!RegExp(emailRegex).hasMatch(value)) {
-                      return StringsManager.Emailnotvaliad.tr();
+                      return StringsManager.email_not_valid.tr();
                     }
                     return null;
                   },
@@ -99,10 +99,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixpath: AssetsManager.pass,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty.tr();
+                      return StringsManager.should_not_empty.tr();
                     }
                     if (value.length < 8) {
-                      return StringsManager.passvaladetion.tr();
+                      return StringsManager.password_validation.tr();
                     }
                     return null;
                   },
@@ -110,13 +110,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: 16.h),
                 CustomField(
-                  hint: StringsManager.repassword.tr(),
+                  hint: StringsManager.re_password.tr(),
                   obscure: true,
                   controller: repassConroller,
                   prefixpath: AssetsManager.repass,
                   validation: (value) {
                     if (value != passConroller.text) {
-                      return StringsManager.passwordsDoNotMatch.tr();
+                      return StringsManager.passwords_do_not_match.tr();
                     }
                     return null;
                   },
@@ -126,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
-                    labelText: StringsManager.selectGender.tr(),
+                    labelText: StringsManager.select_gender.tr(),
                     labelStyle: Theme.of(context).textTheme.titleSmall,
                     hintStyle: Theme.of(context).textTheme.titleSmall,
                     contentPadding: EdgeInsets.symmetric(
@@ -173,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.pleaseSelectGender.tr();
+                      return StringsManager.please_select_gender.tr();
                     }
                     return null;
                   },
@@ -184,7 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: CustomButton(
-                    title: StringsManager.createAccount.tr(),
+                    title: StringsManager.create_account.tr(),
                     onClick: () {
                       if (formkay.currentState?.validate() ?? false) {
                         signup();
@@ -197,7 +197,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      StringsManager.alreadyHaveAccount.tr(),
+                      StringsManager.already_have_account.tr(),
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     TextButton(
@@ -255,7 +255,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (e.code == 'weak-password') {
         DialogUtils.showMassegeDialog(
           context: context,
-          message: StringsManager.weakPassword.tr(),
+          message: StringsManager.weak_password.tr(),
           postitle: StringsManager.ok.tr(),
           posclick: () {
             Navigator.pop(context);
@@ -264,7 +264,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } else if (e.code == 'email-already-in-use') {
         DialogUtils.showMassegeDialog(
           context: context,
-          message: StringsManager.emailAlreadyInUse.tr(),
+          message: StringsManager.email_already_in_use.tr(),
           postitle: StringsManager.ok.tr(),
           posclick: () {
             Navigator.pop(context);

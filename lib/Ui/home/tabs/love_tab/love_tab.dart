@@ -5,6 +5,7 @@ import 'package:evently_app/core/resoources/strings_manager.dart';
 import 'package:evently_app/core/reusable_components/custom_field.dart';
 import 'package:evently_app/model/event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -41,7 +42,7 @@ class _LoveTabState extends State<LoveTab> {
                 return null;
               },
               controller: searchController,
-              hint: StringsManager.search,
+              hint: StringsManager.search.tr(),
               prefixpath: AssetsManager.search,
               kyboard: TextInputType.text,
             ),
@@ -66,7 +67,7 @@ class _LoveTabState extends State<LoveTab> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'No events found',
+                            StringsManager.no_events_found.tr(),
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,

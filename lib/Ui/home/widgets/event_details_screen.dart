@@ -1,6 +1,7 @@
 import 'package:evently_app/Ui/home/widgets/info_tile.dart';
 import 'package:evently_app/core/firestor_handler.dart';
 import 'package:evently_app/core/resoources/assets_manager.dart';
+import 'package:evently_app/core/resoources/color_manager.dart';
 import 'package:evently_app/model/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -133,9 +134,8 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
 
   BoxDecoration _fieldDecoration() {
     return BoxDecoration(
-      color: Colors.white,
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Theme.of(context).primaryColor, width: 1),
+      border: Border.all(color: ColorManager.blue, width: 1),
     );
   }
 
@@ -256,7 +256,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                         _descriptionController.text,
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: Colors.grey.shade700,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
             ),

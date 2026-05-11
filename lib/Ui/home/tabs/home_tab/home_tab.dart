@@ -59,7 +59,7 @@ class _HomeTabState extends State<HomeTab> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: const Text('Light'),
+              title: Text(StringsManager.light.tr()),
               trailing:
                   current == ThemeMode.light ? const Icon(Icons.check) : null,
               onTap: () {
@@ -68,7 +68,7 @@ class _HomeTabState extends State<HomeTab> {
               },
             ),
             ListTile(
-              title: const Text('Dark'),
+              title: Text(StringsManager.dark.tr()),
               trailing:
                   current == ThemeMode.dark ? const Icon(Icons.check) : null,
               onTap: () {
@@ -95,7 +95,7 @@ class _HomeTabState extends State<HomeTab> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: const Text('English'),
+              title: Text(StringsManager.english.tr()),
               trailing: current == 'en' ? const Icon(Icons.check) : null,
               onTap: () async {
                 await context.setLocale(const Locale('en'));
@@ -103,7 +103,7 @@ class _HomeTabState extends State<HomeTab> {
               },
             ),
             ListTile(
-              title: const Text('العربية'),
+              title: Text(StringsManager.arabic.tr()),
               trailing: current == 'ar' ? const Icon(Icons.check) : null,
               onTap: () async {
                 await context.setLocale(const Locale('ar'));
@@ -119,9 +119,11 @@ class _HomeTabState extends State<HomeTab> {
   Widget _buildTab(IconData icon, String asset, String label, int index) {
     return Tab(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
+          border: Border.all(
+            color: selectedIndex == index ? Colors.transparent : Colors.white,
+          ),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
@@ -171,7 +173,7 @@ class _HomeTabState extends State<HomeTab> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              StringsManager.welcome,
+                              StringsManager.welcome.tr(),
                               style: Theme.of(
                                 context,
                               ).textTheme.labelMedium?.copyWith(
@@ -223,40 +225,49 @@ class _HomeTabState extends State<HomeTab> {
                     ],
                   ),
                   const SizedBox(height: 5),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: TabBar(
-                      onTap: (index) {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      },
-                      isScrollable: true,
-                      dividerHeight: 0,
-                      tabAlignment: TabAlignment.start,
-                      unselectedLabelColor: Colors.white,
-                      labelColor: Theme.of(context).colorScheme.primary,
-                      indicator: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      tabs: [
-                        _buildTab(
-                          Icons.all_inclusive,
-                          AssetsManager.all,
-                          "All",
-                          0,
-                        ),
-                        _buildTab(Icons.sports, AssetsManager.bike, "Sport", 1),
-                        _buildTab(
-                          Icons.cake,
-                          AssetsManager.cake,
-                          "Birthday",
-                          2,
-                        ),
-                        _buildTab(Icons.book, AssetsManager.book, "Books", 3),
-                      ],
+                  TabBar(
+                    onTap: (index) {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                    },
+                    isScrollable: true,
+                    dividerHeight: 0,
+                    tabAlignment: TabAlignment.start,
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 4),
+                    unselectedLabelColor: Colors.white,
+                    labelColor: ColorManager.blue,
+                    indicator: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
                     ),
+                    indicatorSize: TabBarIndicatorSize.label,
+                    tabs: [
+                      _buildTab(
+                        Icons.all_inclusive,
+                        AssetsManager.all,
+                        StringsManager.all.tr(),
+                        0,
+                      ),
+                      _buildTab(
+                        Icons.sports,
+                        AssetsManager.bike,
+                        StringsManager.sport.tr(),
+                        1,
+                      ),
+                      _buildTab(
+                        Icons.cake,
+                        AssetsManager.cake,
+                        StringsManager.birthday_party.tr(),
+                        2,
+                      ),
+                      _buildTab(
+                        Icons.book,
+                        AssetsManager.book,
+                        StringsManager.book.tr(),
+                        3,
+                      ),
+                    ],
                   ),
                 ],
               ),

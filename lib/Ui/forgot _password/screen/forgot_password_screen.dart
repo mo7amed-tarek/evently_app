@@ -35,7 +35,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(StringsManager.forgetPassword.tr())),
+      appBar: AppBar(title: Text(StringsManager.forget_password.tr())),
       body: Form(
         key: formkey,
         child: Padding(
@@ -50,10 +50,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 prefixpath: AssetsManager.email,
                 validation: (value) {
                   if (value == null || value.isEmpty) {
-                    return StringsManager.shouldnotempty.tr();
+                    return StringsManager.should_not_empty.tr();
                   }
                   if (!RegExp(emailRegex).hasMatch(value)) {
-                    return StringsManager.Emailnotvaliad.tr();
+                    return StringsManager.email_not_valid.tr();
                   }
                   return null;
                 },
@@ -63,7 +63,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  title: StringsManager.resetPassword.tr(),
+                  title: StringsManager.reset_password.tr(),
                   onClick: () async {
                     if (formkey.currentState?.validate() ?? false) {
                       DialogUtils.showLodingDialog(context);
@@ -72,7 +72,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       );
                       Navigator.pop(context);
                       DialogUtils.showtoast(
-                        StringsManager.linksentsucessful.tr(),
+                        StringsManager.link_sent_successful.tr(),
                       );
                     }
                   },

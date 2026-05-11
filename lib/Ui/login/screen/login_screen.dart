@@ -66,10 +66,10 @@ class _RegisterScreenState extends State<LoginScreen> {
                   prefixpath: AssetsManager.email,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty.tr();
+                      return StringsManager.should_not_empty.tr();
                     }
                     if (!RegExp(emailRegex).hasMatch(value)) {
-                      return StringsManager.Emailnotvaliad.tr();
+                      return StringsManager.email_not_valid.tr();
                     }
                     return null;
                   },
@@ -83,10 +83,10 @@ class _RegisterScreenState extends State<LoginScreen> {
                   prefixpath: AssetsManager.pass,
                   validation: (value) {
                     if (value == null || value.isEmpty) {
-                      return StringsManager.shouldnotempty.tr();
+                      return StringsManager.should_not_empty.tr();
                     }
                     if (value.length < 8) {
-                      return StringsManager.passvaladetion.tr();
+                      return StringsManager.password_validation.tr();
                     }
                     return null;
                   },
@@ -103,7 +103,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                       );
                     },
                     child: Text(
-                      StringsManager.forgetPassword.tr(),
+                      StringsManager.forget_password.tr(),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                         decoration: TextDecoration.underline,
@@ -130,7 +130,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      StringsManager.dontHaveAccount.tr(),
+                      StringsManager.dont_have_account.tr(),
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     TextButton(
@@ -138,7 +138,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                         Navigator.pushNamed(context, RegisterScreen.routeName);
                       },
                       child: Text(
-                        StringsManager.createAccount.tr(),
+                        StringsManager.create_account.tr(),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                           decoration: TextDecoration.underline,
@@ -177,7 +177,7 @@ class _RegisterScreenState extends State<LoginScreen> {
       if (e.code == 'user-not-found') {
         DialogUtils.showMassegeDialog(
           context: context,
-          message: StringsManager.userNotFoundForEmail.tr(),
+          message: StringsManager.user_not_found.tr(),
           postitle: StringsManager.ok.tr(),
           posclick: () {
             Navigator.pop(context);
@@ -186,7 +186,7 @@ class _RegisterScreenState extends State<LoginScreen> {
       } else if (e.code == 'wrong-password') {
         DialogUtils.showMassegeDialog(
           context: context,
-          message: StringsManager.wrongPassword.tr(),
+          message: StringsManager.wrong_password.tr(),
           postitle: StringsManager.ok.tr(),
           posclick: () {
             Navigator.pop(context);

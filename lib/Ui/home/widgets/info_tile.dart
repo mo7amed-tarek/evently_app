@@ -37,7 +37,12 @@ class InfoTile extends StatelessWidget {
                   title,
                   style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
-                Text(subtitle, style: TextStyle(color: Colors.grey.shade600)),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ],
             ),
           ],

@@ -85,7 +85,10 @@ class _EventItemState extends State<EventItem> {
                   Expanded(
                     child: Text(
                       widget.event.title ?? '',
-                      style: const TextStyle(fontWeight: FontWeight.w600),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: ColorManager.blue,
+                      ),
                     ),
                   ),
                   InkWell(

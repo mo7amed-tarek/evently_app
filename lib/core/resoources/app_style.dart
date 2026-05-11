@@ -14,6 +14,8 @@ class AppStyle {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: ColorManager.blue,
       type: BottomNavigationBarType.fixed,
+      selectedItemColor: ColorManager.whiteReal,
+      unselectedItemColor: ColorManager.whiteReal,
       selectedLabelStyle: TextStyle(
         fontSize: 12.sp,
         fontWeight: FontWeight.w400,
@@ -72,12 +74,14 @@ class AppStyle {
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: ColorManager.darkbackground,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: ColorManager.darkbackground,
-      shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 4.w)),
+      backgroundColor: ColorManager.blue,
+      shape: StadiumBorder(side: BorderSide(color: ColorManager.whiteReal, width: 4.w)),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: ColorManager.darkbackground,
       type: BottomNavigationBarType.fixed,
+      selectedItemColor: ColorManager.blue,
+      unselectedItemColor: ColorManager.white,
       selectedLabelStyle: TextStyle(
         fontSize: 12.sp,
         fontWeight: FontWeight.w400,
@@ -101,11 +105,14 @@ class AppStyle {
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.deepPurple,
       primary: ColorManager.blue,
-      secondary: ColorManager.withe,
+      secondary: Colors.grey,
       tertiary: ColorManager.red,
       brightness: Brightness.dark,
-      onPrimary: Colors.black,
-      onPrimaryContainer: ColorManager.withe,
+      onPrimary: ColorManager.whiteReal,
+      onSecondary: ColorManager.black,
+      onSurface: ColorManager.whiteReal,
+      onSurfaceVariant: ColorManager.white,
+      onPrimaryContainer: ColorManager.white,
       primaryContainer: ColorManager.darkbackground,
     ),
     textTheme: TextTheme(
@@ -120,14 +127,14 @@ class AppStyle {
         fontSize: 20.sp,
       ),
       bodySmall: TextStyle(
-        color: ColorManager.withe,
+        color: ColorManager.whiteReal,
         fontWeight: FontWeight.w500,
         fontSize: 16.sp,
       ),
       titleSmall: TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
-        color: ColorManager.withe,
+        color: ColorManager.whiteReal,
       ),
     ),
   );

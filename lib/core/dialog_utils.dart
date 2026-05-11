@@ -15,7 +15,7 @@ class DialogUtils {
       context: context,
       builder:
           (context) => AlertDialog(
-            backgroundColor: ColorManager.withe,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             title: Text(message),
             actions: [
               ElevatedButton(onPressed: posclick, child: Text(postitle)),
@@ -36,7 +36,7 @@ class DialogUtils {
       context: context,
       builder:
           (context) => AlertDialog(
-            backgroundColor: ColorManager.withe,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             title: Center(child: CircularProgressIndicator()),
           ),
     );

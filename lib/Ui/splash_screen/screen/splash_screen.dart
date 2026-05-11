@@ -41,7 +41,6 @@ class _SplashScreenState extends State<SplashScreen> {
                   .scale(begin: Offset(0.5, 0.5)),
 
               Spacer(),
-              Image.asset(AssetsManager.brand),
             ],
           ),
         ),

@@ -1,60 +1,73 @@
 abstract final class StringsManager {
-  static const String startTitle = 'startTitle';
-  static const String startDesc = 'startDesc';
+  static const String start_title = 'start_title';
+  static const String start_desc = 'start_desc';
   static const String language = 'language';
   static const String theme = 'theme';
-  static const String letsStart = 'letsStart';
+  static const String lets_start = 'lets_start';
 
-  static const String onTitle1 = 'on_title';
-  static const String onDesc1 = 'on_description';
-  static const String onTitle2 = 'on_title2';
-  static const String onDesc2 = 'on_description2';
-  static const String onTitle3 = 'on_title3';
-  static const String onDesc3 = 'on_description3';
+  static const String on_title1 = 'on_title1';
+  static const String on_desc1 = 'on_desc1';
+  static const String on_title2 = 'on_title2';
+  static const String on_desc2 = 'on_desc2';
+  static const String on_title3 = 'on_title3';
+  static const String on_desc3 = 'on_desc3';
 
   static const String register = 'register';
   static const String name = 'name';
   static const String email = 'email';
   static const String password = 'password';
-  static const String repassword = 'repassword';
-  static const String createAccount = 'Create Account';
-  static const String alreadyHaveAccount = 'Already Have Account ?';
+  static const String re_password = 're_password';
+  static const String create_account = 'create_account';
+  static const String already_have_account = 'already_have_account';
   static const String login = "login";
-  static const String dontHaveAccount = 'Don’t Have Account ?';
-  static const String forgetPassword = 'Forget Password?';
-  static const String resetPassword = 'Reset Password';
-  static const String shouldnotempty = 'should not be empty';
-  static const String Emailnotvaliad = 'Email not valiad';
-  static const String passvaladetion = 'Password shoulnt be less than 8 char';
-  static const String userNotFoundForEmail = 'No user found for that email';
-  static const String ok = 'OK';
-  static const String wrongPassword = 'Wrong password provided for that user.';
-  static const String linksentsucessful = 'link sent sucessful';
-  static const String passwordsDoNotMatch = 'Passwords do not match.';
-  static const String weakPassword = 'The password provided is too weak.';
-  static const String emailAlreadyInUse =
-      'The account already exists for that email.';
-  static const String selectGender = 'selectGender';
+  static const String dont_have_account = 'dont_have_account';
+  static const String forget_password = 'forget_password';
+  static const String reset_password = 'reset_password';
+  
+  static const String should_not_empty = 'should_not_empty';
+  static const String email_not_valid = 'email_not_valid';
+  static const String password_validation = 'password_validation';
+  static const String user_not_found = 'user_not_found';
+  static const String ok = 'ok';
+  static const String wrong_password = 'wrong_password';
+  static const String link_sent_successful = 'link_sent_successful';
+  static const String passwords_do_not_match = 'passwords_do_not_match';
+  static const String weak_password = 'weak_password';
+  static const String email_already_in_use = 'email_already_in_use';
+
+  static const String select_gender = 'select_gender';
   static const String male = 'male';
   static const String female = 'female';
-  static const String pleaseSelectGender = 'pleaseSelectGender';
-  static const String birthday = 'This is a Birthday Party';
-  static const String welcome = 'Welcome Back ✨';
-  static const String createEvent = 'Create Event';
-  static const String titel = 'Title';
-  static const String eventtitle = ' Event Title';
-  static const String desc = ' Description';
-  static const String eventdesc = 'Event Description';
-  static const String eventdate = 'Event Date';
-  static const String choosedate = 'Choose Date';
-  static const String eventtime = 'Event Time';
-  static const String choosetime = 'Choose Time';
-  static const String location = 'Location';
-  static const String chooseeventlocation = 'Choose Event Location';
-  static const String addevent = 'Add Event';
-  static const String chooseeventdate = 'Choose Event Date';
-  static const String chooseeventtime = 'Choose Event Time';
-  static const String eventadded = 'Event Added Successfully';
-  static const String search = 'Search For Event';
-  static const String logout = 'Logout';
+  static const String please_select_gender = 'please_select_gender';
+  
+  static const String birthday = 'birthday';
+  static const String welcome = 'welcome';
+  static const String create_event = 'create_event';
+  static const String title = 'title';
+  static const String event_title = 'event_title';
+  static const String desc = 'desc';
+  static const String event_desc = 'event_desc';
+  static const String event_date = 'event_date';
+  static const String choose_date = 'choose_date';
+  static const String event_time = 'event_time';
+  static const String choose_time = 'choose_time';
+  static const String location = 'location';
+  static const String choose_event_location = 'choose_event_location';
+  static const String add_event = 'add_event';
+  static const String event_added = 'event_added';
+  static const String search = 'search';
+  static const String logout = 'logout';
+
+  static const String light = 'light';
+  static const String dark = 'dark';
+  static const String english = 'english';
+  static const String arabic = 'arabic';
+
+  static const String all = 'all';
+  static const String sport = 'sport';
+  static const String birthday_party = 'birthday_party';
+  static const String book = 'book';
+  static const String no_events_found = 'no_events_found';
 }
+
+

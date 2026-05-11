@@ -34,8 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedTap,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
         onTap: (value) {
           selectedTap = value;
           setState(() {});
@@ -47,11 +45,21 @@ class _HomeScreenState extends State<HomeScreen> {
               AssetsManager.home,
               height: 24.h,
               width: 24.w,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).bottomNavigationBarTheme.unselectedItemColor ??
+                    Colors.grey,
+                BlendMode.srcIn,
+              ),
             ),
             activeIcon: SvgPicture.asset(
               AssetsManager.homeSelected,
               height: 24.h,
               width: 24.w,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).bottomNavigationBarTheme.selectedItemColor ??
+                    Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
           BottomNavigationBarItem(
@@ -60,11 +68,21 @@ class _HomeScreenState extends State<HomeScreen> {
               AssetsManager.map,
               height: 24.h,
               width: 24.w,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).bottomNavigationBarTheme.unselectedItemColor ??
+                    Colors.grey,
+                BlendMode.srcIn,
+              ),
             ),
             activeIcon: SvgPicture.asset(
               AssetsManager.mapSelected,
               height: 24.h,
               width: 24.w,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).bottomNavigationBarTheme.selectedItemColor ??
+                    Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
           BottomNavigationBarItem(
@@ -73,11 +91,21 @@ class _HomeScreenState extends State<HomeScreen> {
               AssetsManager.heart,
               height: 24.h,
               width: 24.w,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).bottomNavigationBarTheme.unselectedItemColor ??
+                    Colors.grey,
+                BlendMode.srcIn,
+              ),
             ),
             activeIcon: SvgPicture.asset(
               AssetsManager.heartSelected,
               height: 24.h,
               width: 24.w,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).bottomNavigationBarTheme.selectedItemColor ??
+                    Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
           BottomNavigationBarItem(
@@ -86,11 +114,21 @@ class _HomeScreenState extends State<HomeScreen> {
               AssetsManager.user,
               height: 24.h,
               width: 24.w,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).bottomNavigationBarTheme.unselectedItemColor ??
+                    Colors.grey,
+                BlendMode.srcIn,
+              ),
             ),
             activeIcon: SvgPicture.asset(
               AssetsManager.userSelected,
               height: 24.h,
               width: 24.w,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).bottomNavigationBarTheme.selectedItemColor ??
+                    Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ],

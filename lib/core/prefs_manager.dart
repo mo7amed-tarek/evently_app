@@ -13,4 +13,16 @@ class PrefsManager {
   static bool getThemeMode() {
     return prefs.getBool("theme") ?? false;
   }
+
+  static saveProfileImage(String path) {
+    prefs.setString("profileImage", path);
+  }
+
+  static String? getProfileImage() {
+    return prefs.getString("profileImage");
+  }
+
+  static clearProfileImage() {
+    prefs.remove("profileImage");
+  }
 }
