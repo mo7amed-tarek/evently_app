@@ -41,9 +41,9 @@ class _ProfileTabState extends State<ProfileTab> {
   Future<void> _pickImage() async {
     final XFile? picked = await _picker.pickImage(
       source: ImageSource.gallery,
-      maxWidth: 400, // Limit resolution
+      maxWidth: 400,
       maxHeight: 400,
-      imageQuality: 30, // Significant compression
+      imageQuality: 30,
     );
     if (picked != null) {
       final userProv = context.read<UserProvider>();
@@ -59,21 +59,17 @@ class _ProfileTabState extends State<ProfileTab> {
       try {
         final bytes = await File(picked.path).readAsBytes();
         final base64Image = base64Encode(bytes);
-        
+
         await FirestorHandler.updateUserProfileImage(uid, base64Image);
         
-        if (userProv.myUser != null) {
-          userProv.myUser!.profileImage = base64Image;
-          userProv.notifyListeners();
-        }
-        
+        userProv.updateProfileImageRemote(base64Image);
         userProv.setProfileImage(picked.path);
         Navigator.pop(context);
       } catch (e) {
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Save failed: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Save failed: $e')));
       }
     }
   }
@@ -85,7 +81,7 @@ class _ProfileTabState extends State<ProfileTab> {
     final cs = Theme.of(context).colorScheme;
 
     Widget buildAvatar() {
-      if (userProv.myUser?.profileImage != null && 
+      if (userProv.myUser?.profileImage != null &&
           userProv.myUser!.profileImage!.length > 100) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(40),
@@ -98,7 +94,7 @@ class _ProfileTabState extends State<ProfileTab> {
           ),
         );
       }
-      
+
       if (userProv.profileImagePath != null) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(40),
@@ -111,7 +107,7 @@ class _ProfileTabState extends State<ProfileTab> {
           ),
         );
       }
-      
+
       return _defaultAvatar(cs);
     }
 
@@ -171,8 +167,14 @@ class _ProfileTabState extends State<ProfileTab> {
               isExpanded: true,
               value: _currentLangCode,
               items: [
-                DropdownMenuItem(value: 'ar', child: Text(StringsManager.arabic.tr())),
-                DropdownMenuItem(value: 'en', child: Text(StringsManager.english.tr())),
+                DropdownMenuItem(
+                  value: 'ar',
+                  child: Text(StringsManager.arabic.tr()),
+                ),
+                DropdownMenuItem(
+                  value: 'en',
+                  child: Text(StringsManager.english.tr()),
+                ),
               ],
               onChanged: (code) async {
                 if (code == null) return;
@@ -189,8 +191,14 @@ class _ProfileTabState extends State<ProfileTab> {
               isExpanded: true,
               value: _currentTheme,
               items: [
-                DropdownMenuItem(value: ThemeMode.light, child: Text(StringsManager.light.tr())),
-                DropdownMenuItem(value: ThemeMode.dark, child: Text(StringsManager.dark.tr())),
+                DropdownMenuItem(
+                  value: ThemeMode.light,
+                  child: Text(StringsManager.light.tr()),
+                ),
+                DropdownMenuItem(
+                  value: ThemeMode.dark,
+                  child: Text(StringsManager.dark.tr()),
+                ),
               ],
               onChanged: (mode) {
                 if (mode == null) return;
@@ -236,10 +244,10 @@ class _ProfileTabState extends State<ProfileTab> {
   }
 
   Widget _defaultAvatar(ColorScheme cs) => CircleAvatar(
-        radius: 40,
-        backgroundColor: cs.surfaceVariant,
-        child: Icon(Icons.person, size: 40, color: cs.primary),
-      );
+    radius: 40,
+    backgroundColor: cs.surfaceVariant,
+    child: Icon(Icons.person, size: 40, color: cs.primary),
+  );
 
   Padding _title(String txt) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16.0),

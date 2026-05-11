@@ -27,4 +27,11 @@ class UserProvider extends ChangeNotifier {
     PrefsManager.saveProfileImage(path);
     notifyListeners();
   }
+
+  void updateProfileImageRemote(String base64) {
+    if (myUser != null) {
+      myUser!.profileImage = base64;
+      notifyListeners();
+    }
+  }
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app/model/event.dart';
 import 'package:evently_app/model/users.dart' as MyUser;
@@ -7,8 +5,13 @@ import 'package:evently_app/model/users.dart' as MyUser;
 class FirestorHandler {
   // ... existing methods ...
 
-  static Future<void> updateUserProfileImage(String userId, String base64Image) {
-    return getUserCollection().doc(userId).update({"profileImage": base64Image});
+  static Future<void> updateUserProfileImage(
+    String userId,
+    String base64Image,
+  ) {
+    return getUserCollection().doc(userId).update({
+      "profileImage": base64Image,
+    });
   }
 
   static CollectionReference<MyUser.User> getUserCollection() {
